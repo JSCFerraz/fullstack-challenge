@@ -1,5 +1,6 @@
 import { AppDataSource } from "../../data-source";
 import { Client } from "../../entities";
+import AppError from "../../errors/app.errors";
 import {
   TClient,
   TClientRepo,
@@ -18,7 +19,7 @@ const createClientService = async (
   });
 
   if (findClient) {
-    throw new Error("Client aready exists.");
+    throw new AppError("Client aready exists.");
   }
   const client: TClient = clientRepository.create(userData);
 

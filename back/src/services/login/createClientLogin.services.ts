@@ -7,7 +7,7 @@ import { Repository } from "typeorm";
 import AppError from "../../errors/app.errors";
 import TClientLogin from "../../interfaces/login.interface";
 
-const createUserLoginService = async (
+const createClientLoginService = async (
   loginData: TClientLogin
 ): Promise<string> => {
   const clientRepository: Repository<Client> =
@@ -45,4 +45,4 @@ const createUserLoginService = async (
   return token;
 };
 
-export default createUserLoginService;
+export default createClientLoginService;

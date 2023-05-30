@@ -9,11 +9,7 @@ import verifyClientEmailExistsMiddleware from "../middlewares/clients/verifyClie
 import verifyUserEmailExistsMiddleware from "../middlewares/clients/verifyClientEmailExists.middleware";
 import verifyDataIsValidMiddleware from "../middlewares/verifyDataIsValid.middleware";
 import verifyTokenIsValidMiddleware from "../middlewares/verifyToken.middleware";
-import {
-  clientSchema,
-  clientSchemaRequest,
-  clientSchemaResponse,
-} from "../schemas/client.schemas";
+import { clientSchema } from "../schemas/client.schemas";
 import verifyClientIdExistsMiddleware from "../middlewares/clients/verifyClientIdExists.middleware";
 import { clientUpdateSchema } from "../schemas/client.schemas";
 import listClientService from "../services/client/listClient.services";

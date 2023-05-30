@@ -1,5 +1,7 @@
 import { AppDataSource } from "../../data-source";
-import { Contact } from "../../entities";
+import { Client, Contact } from "../../entities";
+import AppError from "../../errors/app.errors";
+import { TClientRepo } from "../../interfaces/client.interface";
 import {
   TContactRepo,
   TContactResponse,
@@ -14,20 +16,14 @@ const listAllContactsByClientIdService = async (
 ): Promise<Contact[]> => {
   const contactRepo: TContactRepo = AppDataSource.getRepository(Contact);
 
-  // const findContacts: Array<Contact> = await contactRepo.find({
-  //   // where: { registeredBy.id: clientId },
-  // });
+  const clientRepo: TClientRepo = AppDataSource.getRepository(Client);
+  const findClient: Client | null = await clientRepo.findOneBy({
+    id: clientId,
+  });
 
   const findClientContacts: Contact[] | null = await contactRepo
     .createQueryBuilder("contacts")
-    // .select([
-    //   "contacts.id",
-    //   "contacts.name",
-    //   "contacts.email",
-    //   "contacts.phone",
-    // ])
     .innerJoinAndSelect("contacts.registeredBy", "clients")
-    // .where("contacts.email = :email", { email: email })
     .where("contacts.registeredBy = :client", {
       client: clientId,
     })
