@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const client_controller_1 = require("../controllers/client.controller");
+const verifyClientEmailExists_middleware_1 = __importDefault(require("../middlewares/clients/verifyClientEmailExists.middleware"));
+const verifyClientEmailExists_middleware_2 = __importDefault(require("../middlewares/clients/verifyClientEmailExists.middleware"));
+const verifyDataIsValid_middleware_1 = __importDefault(require("../middlewares/verifyDataIsValid.middleware"));
+const verifyToken_middleware_1 = __importDefault(require("../middlewares/verifyToken.middleware"));
+const client_schemas_1 = require("../schemas/client.schemas");
+const verifyClientIdExists_middleware_1 = __importDefault(require("../middlewares/clients/verifyClientIdExists.middleware"));
+const client_schemas_2 = require("../schemas/client.schemas");
+const listClient_services_1 = __importDefault(require("../services/client/listClient.services"));
+const clientRoutes = (0, express_1.Router)();
+clientRoutes.post("", (0, verifyDataIsValid_middleware_1.default)(client_schemas_1.clientSchema), verifyClientEmailExists_middleware_1.default, client_controller_1.createClientController);
+clientRoutes.get("/:id", verifyToken_middleware_1.default, client_controller_1.listClientController);
+clientRoutes.patch("/:id", verifyClientIdExists_middleware_1.default, (0, verifyDataIsValid_middleware_1.default)(client_schemas_2.clientUpdateSchema), verifyToken_middleware_1.default, verifyClientEmailExists_middleware_2.default, client_controller_1.updateClientController);
+clientRoutes.delete("/:id", verifyClientIdExists_middleware_1.default, verifyToken_middleware_1.default, client_controller_1.deleteClientController);
+clientRoutes.get("", verifyToken_middleware_1.default, listClient_services_1.default);
+exports.default = clientRoutes;
