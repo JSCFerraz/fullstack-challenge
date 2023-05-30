@@ -3,7 +3,7 @@ import { ZodError } from "zod";
 import AppError from "../errors/app.errors";
 
 const handleErrorMiddleware = (
-  error: unknown,
+  error: Error,
   req: Request,
   res: Response,
   _: NextFunction

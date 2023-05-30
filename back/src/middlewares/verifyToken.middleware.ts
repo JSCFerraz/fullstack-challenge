@@ -8,9 +8,11 @@ const verifyTokenIsValidMiddleware = async (
   next: NextFunction
 ): Promise<Response | void> => {
   const authToken: string | undefined = req.headers.authorization;
+
   if (!authToken) {
-    throw new AppError("Missing bearer token", 401);
+    throw new AppError("Invalid token.", 401);
   }
+
   const token: string = authToken.split(" ")[1];
 
   verify(token, String(process.env.SECRET_KEY)!, (error: any, decoded: any) => {

@@ -7,43 +7,37 @@ import {
 } from "../controllers/contact.controller";
 import verifyDataIsValidMiddleware from "../middlewares/verifyDataIsValid.middleware";
 import verifyTokenIsValidMiddleware from "../middlewares/verifyToken.middleware";
-import verifyContactEmailExistsMiddleware from "../middlewares/contacts/verifyClientContactExists.middleware";
-import { contactSchema, contactUpdateSchema } from "../schemas/contact.schemas";
+import {
+  contactSchema,
+  contactSchemaRequest,
+  contactUpdateSchema,
+} from "../schemas/contact.schemas";
 import verifyClientContactExistsMiddleware from "../middlewares/contacts/verifyClientContactExists.middleware";
 import verifyContactIdExistsMiddleware from "../middlewares/contacts/verifyContactIdExists.middleware";
-import { updateClientController } from "../controllers/client.controller";
-import verifyClientEmailExistsMiddleware from "../middlewares/clients/verifyClientEmailExists.middleware";
+import { verifyIsOwnerMiddleware } from "../middlewares/verifyIsOwner.middleware";
+import verifyContactEmailExistsMiddleware from "../middlewares/contacts/verifyContactEmailExists.middleware";
 
 const contactsRoutes: Router = Router();
 
+contactsRoutes.use(verifyTokenIsValidMiddleware);
+
 contactsRoutes.post(
   "",
-  verifyDataIsValidMiddleware(contactSchema),
-  verifyTokenIsValidMiddleware,
+  verifyDataIsValidMiddleware(contactSchemaRequest),
   verifyClientContactExistsMiddleware,
   createContactController
 );
 
-contactsRoutes.get(
-  "",
-  verifyTokenIsValidMiddleware,
-  listAllContactsByClientIdController
-);
+contactsRoutes.get("", listAllContactsByClientIdController);
 
 contactsRoutes.patch(
   "/:id",
-  verifyContactIdExistsMiddleware,
+  verifyIsOwnerMiddleware,
   verifyDataIsValidMiddleware(contactUpdateSchema),
-  verifyTokenIsValidMiddleware,
-  verifyClientContactExistsMiddleware,
+  verifyContactEmailExistsMiddleware,
   updateContactController
 );
 
-contactsRoutes.delete(
-  "/:id",
-  verifyContactIdExistsMiddleware,
-  verifyTokenIsValidMiddleware,
-  deleteContactController
-);
+contactsRoutes.delete("/:id", verifyIsOwnerMiddleware, deleteContactController);
 
 export default contactsRoutes;

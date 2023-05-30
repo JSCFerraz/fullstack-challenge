@@ -1,6 +1,5 @@
 import { AppDataSource } from "../../data-source";
 import { Contact } from "../../entities";
-
 import { TContactRepo } from "../../interfaces/contact.interface";
 
 const deleteContactService = async (contactId: string): Promise<void> => {
