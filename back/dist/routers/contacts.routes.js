@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const contact_controller_1 = require("../controllers/contact.controller");
+const verifyDataIsValid_middleware_1 = __importDefault(require("../middlewares/verifyDataIsValid.middleware"));
+const verifyToken_middleware_1 = __importDefault(require("../middlewares/verifyToken.middleware"));
+const contact_schemas_1 = require("../schemas/contact.schemas");
+const verifyClientContactExists_middleware_1 = __importDefault(require("../middlewares/contacts/verifyClientContactExists.middleware"));
+const verifyIsOwner_middleware_1 = require("../middlewares/verifyIsOwner.middleware");
+const verifyContactEmailExists_middleware_1 = __importDefault(require("../middlewares/contacts/verifyContactEmailExists.middleware"));
+const contactsRoutes = (0, express_1.Router)();
+contactsRoutes.use(verifyToken_middleware_1.default);
+contactsRoutes.post("", (0, verifyDataIsValid_middleware_1.default)(contact_schemas_1.contactSchemaRequest), verifyClientContactExists_middleware_1.default, contact_controller_1.createContactController);
+contactsRoutes.get("", contact_controller_1.listAllContactsByClientIdController);
+contactsRoutes.patch("/:id", verifyIsOwner_middleware_1.verifyIsOwnerMiddleware, (0, verifyDataIsValid_middleware_1.default)(contact_schemas_1.contactUpdateSchema), verifyContactEmailExists_middleware_1.default, contact_controller_1.updateContactController);
+contactsRoutes.delete("/:id", verifyIsOwner_middleware_1.verifyIsOwnerMiddleware, contact_controller_1.deleteContactController);
+exports.default = contactsRoutes;
