@@ -1,20 +1,16 @@
-import { TechForm } from "../Form/TechForm";
-// import { useContext, useEffect, useRef } from "react";
 import { Modal, ModalBox, StyledTechTitle } from "./style";
-import { Button } from "../Button";
-import { StyledText } from "../../styles/typography";
-// import { TechContext } from "../../contexts/TechContext";
-import { TechFormDetails } from "../Form/TechFormDetails";
-import { useContext } from "react";
 
-import { ContactContext } from "../contexts/ContactContext/ContactContext";
+import { Button } from "../components/Button";
+import { StyledText } from "../styles/typography";
+import { ContactForm } from "../components/Forms/ContactForm";
 
 interface iModalContactProps {
   contactAction: string;
 }
 
-export const ContactModal = ({ contactAction }) => {
-  const { actionOverContact } = useContext(ContactContext);
+export const ContactModal = () => {
+  // const { actionOverContact } = useContext(ContactContext);
+  const actionOverContact = "create";
 
   return actionOverContact === "create" ? (
     <Modal>
@@ -24,10 +20,10 @@ export const ContactModal = ({ contactAction }) => {
         </Button>
         <StyledTechTitle>
           <StyledText tag="h3" textStyle="title2">
-            Cadastrar Tecnologia
+            Cadastrar contato
           </StyledText>
         </StyledTechTitle>
-        <TechForm />
+        <ContactForm />
       </ModalBox>
     </Modal>
   ) : (
@@ -38,10 +34,10 @@ export const ContactModal = ({ contactAction }) => {
         </Button>
         <StyledTechTitle>
           <StyledText tag="h3" textStyle="title2">
-            Tecnologia Detalhes
+            Detalhes do contato
           </StyledText>
         </StyledTechTitle>
-        <TechFormDetails techId={actionOverTech} />
+        {/* <ContactFormDetails contactId={actionOverContact} /> */}
       </ModalBox>
     </Modal>
   );

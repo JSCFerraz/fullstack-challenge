@@ -13,10 +13,22 @@ function text(textStyle: string) {
         font-size: var(--font-size-20);
         font-weight: 700;
       `;
+    case "title1-white":
+      return css`
+        font-size: var(--font-size-24);
+        font-weight: 700;
+        color: var(--color-white);
+      `;
     case "title2":
       return css`
         font-size: var(--font-size-16);
         font-weight: 700;
+      `;
+    case "title2-white":
+      return css`
+        font-size: var(--font-size-16);
+        font-weight: 700;
+        color: var(--color-white);
       `;
     case "title3":
       return css`

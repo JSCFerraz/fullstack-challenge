@@ -13,7 +13,7 @@ import { Container } from "../../../styles/containers";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import { Button } from "../../Button";
-import { UserContext } from "../../../contexts/Usercontext/UserContext";
+import { UserContext } from "../../../contexts/UserContext/UserContext";
 import { StyledText } from "../../../styles/typography";
 import { iRegisterFormValues } from "./types";
 

@@ -6,7 +6,7 @@ import { CartList } from "../CartList";
 import { CartContext } from "../../contexts/CartContext/CartContext";
 import { TotalCart } from "../TotalCart";
 
-export const CartModal = () => {
+export const ContactModal = () => {
   const { openCartModal } = useContext(CartContext);
 
   return (

@@ -24,7 +24,7 @@ export const StyledLoginDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--color-grey-3);
+  /* background-color: var(--color-grey-3); */
   border-radius: var(--radius-1);
   margin: 0 auto;
   position: relative;

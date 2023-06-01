@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import { Login } from "../pages/Login";
-import { Dashboard } from "../pages/Dashboard";
 import { ProtectedRoutes } from "../components/ProtectedRoutes";
 import { Register } from "../pages/Register";
+import { Dashboard } from "../pages/Dashboard";
 
 export const RoutesMain = () => {
   return (

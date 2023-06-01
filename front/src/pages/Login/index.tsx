@@ -7,7 +7,7 @@ import {
   StyledMessageDiv,
   StyledPageSideInfo,
 } from "./style";
-import contacts from "../../assets/img/images.png";
+import contacts from "../../assets/img/imagemForms.png";
 import { StyledText } from "../../styles/typography";
 
 export const Login = () => {
@@ -19,7 +19,7 @@ export const Login = () => {
             <StyledText tag="h1">My Contacts</StyledText>
           </StyledMessageDiv>
           <StyledMessageDiv>
-            <img src={contacts} alt="Imagem do telefone" />
+            <img src={contacts} alt="Imagem do logo" />
           </StyledMessageDiv>
         </StyledPageSideInfo>
         <StyledLoginFormDiv>

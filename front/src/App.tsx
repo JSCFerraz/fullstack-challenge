@@ -1,12 +1,15 @@
 import { ToastContainer } from "react-toastify";
 import { RoutesMain } from "./routes";
 import { GlobalStyle } from "./styles/GlobalStyle";
+import { UserProvider } from "./contexts/UserContext/UserContext";
 
 export const App = () => {
   return (
     <>
       <GlobalStyle />
-      <RoutesMain />
+      <UserProvider>
+        <RoutesMain />
+      </UserProvider>
       <ToastContainer
         position="bottom-right"
         autoClose={3000}

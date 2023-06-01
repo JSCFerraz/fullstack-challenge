@@ -2,30 +2,30 @@ import { useContext } from "react";
 import { Container } from "../../styles/containers";
 import { StyledText } from "../../styles/typography";
 import { Button } from "../Button";
-import { TechModal } from "../TechModal";
 import { StyledUserDashMain, StyledTechHeader } from "./style";
-import { TechList } from "../TechList";
-import { ContactContext } from "../../contexts/ContactContext/ContactContext";
+import { ContactModal } from "../../ContactModal";
+import { ContactList } from "../../ContactList";
+import { FaPlus } from "react-icons/fa";
 
-export const DashMain = ({ page }) => {
-  const { actionOverContact } = useContext(ContactContext);
+export const DashMain = () => {
+  const page = "dashboard";
+
+  // const { actionOverContact } = useContext(ContactContext);
+  const actionOverContact = "";
+
   return (
     <Container page={page}>
       <StyledUserDashMain>
         <StyledTechHeader>
-          <StyledText tag="h2" textStyle="title1">
+          <StyledText tag="h2" textStyle="title1-white">
             Contatos
           </StyledText>
           <Button type="addContactButton" buttonStyle="icon">
-            +
+            <FaPlus />
           </Button>
         </StyledTechHeader>
-        <TechList />
-        {actionOverContact !== "" ? (
-          <TechModal contactAction={actionOverContact} />
-        ) : (
-          <></>
-        )}
+        <ContactList />
+        {actionOverContact !== "" ? <ContactModal /> : <></>}
       </StyledUserDashMain>
     </Container>
   );

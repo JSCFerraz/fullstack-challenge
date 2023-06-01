@@ -1,9 +1,7 @@
 import { StyledLink } from "./style";
 import { StyledButton } from "../../styles/buttons";
 import { useContext } from "react";
-import { UserContext } from "../../contexts/Usercontext/UserContext";
-// import { CartContext } from "../../contexts/CartContext/CartContext";
-// import { ProductContext } from "../../contexts/ProductContext/ProductContext";
+import { UserContext } from "../../contexts/UserContext/UserContext";
 import { iButton } from "./types";
 import { ContactContext } from "../../contexts/ContactContext/ContactContext";
 
@@ -17,11 +15,11 @@ export const Button = ({
   const { logoutUser } = useContext(UserContext);
   // const { setOpenCartModal } = useContext(CartContext);
   // const { showSearchInput, setShowSearchInput } = useContext(ProductContext);
-  const { setActionOverContact } = useContext(ContactContext);
 
   const handleSearchBar = () => {
     // showSearchInput ? setShowSearchInput(false) : setShowSearchInput(true);
   };
+
   return (
     <>
       {type === "submit" && (
@@ -53,7 +51,7 @@ export const Button = ({
         <StyledButton
           type="button"
           buttonSize={buttonStyle}
-          onClick={() => setActionOverContact("create")}
+          // onClick={() => setActionOverContact("create")}
           disabled={false}
         >
           {children}

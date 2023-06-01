@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useLocation, Outlet, Navigate } from "react-router-dom";
-import { UserContext } from "../../contexts/Usercontext/UserContext";
+import { UserContext } from "../../contexts/UserContext/UserContext";
 import { StyledText } from "../../styles/typography";
 
 export const ProtectedRoutes = () => {
