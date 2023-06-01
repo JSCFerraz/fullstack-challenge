@@ -1,4 +1,4 @@
-import logo from "./../../assets/img/logo.svg";
+import logo from "./../../assets/img/LogoContacts.png";
 import {
   StyledHeader,
   StyledHeaderContents,
@@ -13,17 +13,11 @@ import { FiLogOut } from "react-icons/fi";
 export const Header = () => {
   return (
     <StyledHeader>
-      <Container page="homepage">
+      <Container page="dashboard">
         <StyledHeaderContents>
-          <h2>MyContacts</h2>
+          <img src={logo} alt="Imagem do logo" />
           <StyledRightColumn>
             {window.screen.width > 500 ? <InputSearch /> : <></>}
-            {/* <StyledIconDiv>
-              <Button type="modal" buttonStyle="icon">
-                <FaShoppingCart />
-              </Button>
-              <span>{totalQuantityCart}</span>
-            </StyledIconDiv> */}
             <Button type="logout" buttonStyle="icon">
               <FiLogOut />
             </Button>

@@ -7,7 +7,7 @@ import {
   StyledMessageDiv,
   StyledPageSideInfo,
 } from "./style";
-import contacts from "../../assets/img/images.png";
+import contacts from "../../assets/img/imagemForms.png";
 import { StyledText } from "../../styles/typography";
 import { RegisterForm } from "../../components/Forms/RegisterForm";
 

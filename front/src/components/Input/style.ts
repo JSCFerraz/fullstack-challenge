@@ -12,6 +12,7 @@ export const StyledInput = styled.input`
   padding: 0 1rem;
   display: block;
   font-size: var(--font-size-14);
+  /* position: absolute; */
 
   -webkit-appearance: none;
   -moz-appearance: none;

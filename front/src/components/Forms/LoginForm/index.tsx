@@ -4,7 +4,7 @@ import { SingleInput } from "../../Input";
 import { HelperTextDiv, StyledForm } from "../RegisterForm/style";
 import { Button } from "../../Button";
 import { useContext } from "react";
-import { UserContext } from "../../../contexts/Usercontext/UserContext";
+import { UserContext } from "../../../contexts/UserContext/UserContext";
 import { loginFormSchema } from "./loginFormSchema";
 import {
   StyledDivToRegister,

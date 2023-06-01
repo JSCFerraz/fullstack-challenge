@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { UserContext } from "../../contexts/Usercontext/UserContext";
+import { UserContext } from "../UserContext/UserContext";
 import { api } from "../../services/api";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
@@ -20,7 +20,6 @@ export const ContactProvider = ({ children }: iChildren) => {
   const [deleteContactLoading, setDeleteContactLoading] =
     useState<boolean>(false);
   const { setUser } = useContext(UserContext);
-
   const [filteredContacts, setFilteredContacts] = useState(
     [] as iContactItem[]
   );

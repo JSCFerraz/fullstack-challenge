@@ -12,8 +12,6 @@ import { StyledForm } from "../RegisterForm/style";
 import { contactFormSchema } from "./contactFormSchema";
 
 export const ContactForm = () => {
-  const { contactLoading, addContact } = useContext(ContactContext);
-
   const {
     register,
     handleSubmit,
@@ -27,9 +25,11 @@ export const ContactForm = () => {
   });
 
   const submit: SubmitHandler<iContactFormValues> = (data) => {
-    addContact(data);
+    // addContact(data);
     reset();
   };
+
+  const contactLoading = true;
 
   return (
     <Container>

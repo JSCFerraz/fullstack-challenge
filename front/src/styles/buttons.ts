@@ -36,9 +36,9 @@ export const StyledButton = styled.button<iStyledButton>`
       `;
     } else if (btnPosition === "search") {
       return css`
-        position: absolute;
-        left: 225px;
-        top: -0.45rem;
+        position: relative;
+        right: -140px;
+        top: -4rem;
       `;
     } else {
       return null;
@@ -83,12 +83,10 @@ export const StyledButton = styled.button<iStyledButton>`
           margin-top: 1rem;
           line-height: 3.5rem;
           font-size: var(--font-size-16);
-          color: var(--color-grey0);
           background-color: var(--color-primary);
           border: 1px solid var(--color-primary);
 
           &:hover {
-            color: var(--color-grey-0);
             background-color: var(--color-primary-50);
             border: 1px solid var(--color-primary-50);
           }
@@ -96,17 +94,20 @@ export const StyledButton = styled.button<iStyledButton>`
       case "icon":
         return css`
           width: fit-content;
-          padding: 0 0.5rem;
+          height: 3.6rem;
+          padding: 0 1rem;
           display: flex;
           justify-content: center;
-          line-height: 3.5rem;
+          line-height: 4.5rem;
           font-size: var(--font-size-16);
-          color: var(--color-grey50);
-          background-color: transparent;
+          background-color: var(--color-primary);
+          border: 1px solid var(--color-primary);
           z-index: 45;
+          /* position: absolute; */
+          /* top: 1.5rem; */
 
           &:hover {
-            color: var(--color-primary);
+            background-color: var(--color-primary-hover);
           }
         `;
       case "cart":

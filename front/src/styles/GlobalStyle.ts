@@ -42,6 +42,7 @@ export const GlobalStyle = createGlobalStyle`
     --input-background-hover: var(--color-grey-2);
     --input-border-focus: var(--color-grey-2);
 
+    --font-size-24: 1.5rem;
     --font-size-20: 1.25rem;
     --font-size-18: 1.125rem;
     --font-size-16: 1rem;

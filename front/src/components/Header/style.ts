@@ -11,10 +11,11 @@ export const StyledHeaderContents = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  padding: 0.5rem 0;
+  padding: 0.5rem 0 0 0;
 
   & > img {
     height: 1rem;
+    margin-bottom: 3rem;
   }
 
   @media (min-width: 700px) {
@@ -22,12 +23,12 @@ export const StyledHeaderContents = styled.div`
     justify-content: space-between;
 
     & > img {
-      height: 1.5rem;
+      height: 3.5rem;
     }
   }
   @media (min-width: 1100px) {
     & > img {
-      height: 2rem;
+      height: 3.5rem;
     }
   }
 `;
@@ -66,8 +67,8 @@ export const StyledIconDiv = styled.div`
 
 export const StyledRightColumn = styled.div`
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
 
   @media (min-width: 700px) {
     gap: 1rem;

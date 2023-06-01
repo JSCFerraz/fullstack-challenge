@@ -3,10 +3,10 @@ import { StyledSearchForm, StyledInputSearch } from "./style";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { searchFormSchema } from "./searchFormSchema";
-import { ProductContext } from "../../../contexts/ProductContext/ProductContext";
 import { iSearchForm } from "./types";
 import { FaSearch } from "react-icons/fa";
 import { Button } from "../../Button";
+import { ContactContext } from "../../../contexts/ContactContext/ContactContext";
 
 export const InputSearch = () => {
   const {
@@ -17,10 +17,10 @@ export const InputSearch = () => {
   } = useForm<iSearchForm>({
     resolver: yupResolver(searchFormSchema),
   });
-  const { filterSearchedProducts } = useContext(ProductContext);
+  // const { filterSearchedContacts } = useContext(ContactContext);
 
   const submit: SubmitHandler<iSearchForm> = (data) => {
-    filterSearchedProducts(data.searchString);
+    // filterSearchedProducts(data.searchString);
     reset();
   };
 
