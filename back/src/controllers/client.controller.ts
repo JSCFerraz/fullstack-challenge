@@ -39,7 +39,8 @@ const listClientController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const client: TClientResponse = await listClientService(req.params.id);
+  const clientId = req.client.clientId;
+  const client: TClientResponse = await listClientService(clientId);
 
   return res.status(200).json(client);
 };

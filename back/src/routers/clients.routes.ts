@@ -23,7 +23,7 @@ clientRoutes.post(
   createClientController
 );
 
-clientRoutes.get("/:id", verifyTokenIsValidMiddleware, listClientController);
+clientRoutes.get("", verifyTokenIsValidMiddleware, listClientController);
 
 clientRoutes.patch(
   "/:id",

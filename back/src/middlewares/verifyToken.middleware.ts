@@ -8,7 +8,7 @@ const verifyTokenIsValidMiddleware = async (
   next: NextFunction
 ): Promise<Response | void> => {
   const authToken: string | undefined = req.headers.authorization;
-
+  console.log("BACK", authToken);
   if (!authToken) {
     throw new AppError("Invalid token.", 401);
   }
