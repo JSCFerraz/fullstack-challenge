@@ -54,8 +54,22 @@ export const StyledButton = styled.button<iStyledButton>`
           display: flex;
           justify-content: center;
           line-height: 3.5rem;
+          height: 3rem;
           font-size: var(--font-size-16);
           color: var(--color-grey-0);
+          background-color: var(--color-primary);
+          border: 1px solid var(--color-primary);
+        `;
+      case "delete":
+        return css`
+          min-width: 30%;
+          padding: 0 1.5rem;
+          height: 3rem;
+          display: flex;
+          justify-content: center;
+          line-height: 4rem;
+          font-size: var(--font-size-16);
+          color: var(--color-grey-4);
           background-color: var(--color-primary);
           border: 1px solid var(--color-primary);
         `;

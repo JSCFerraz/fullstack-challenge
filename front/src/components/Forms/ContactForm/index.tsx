@@ -7,9 +7,9 @@ import { StyledContactForm } from "./style";
 import { Container } from "../../../styles/containers";
 import { Button } from "../../Button";
 import { ContactContext } from "../../../contexts/ContactContext/ContactContext";
-import { iContactFormValues } from "./types";
 import { StyledForm } from "../RegisterForm/style";
 import { contactFormSchema } from "./contactFormSchema";
+import { iContectCreateItem } from "../../../contexts/ContactContext/types";
 
 export const ContactForm = () => {
   const {
@@ -24,8 +24,10 @@ export const ContactForm = () => {
     defaultValues: { name: "", email: "", phone: "" },
   });
 
-  const submit: SubmitHandler<iContactFormValues> = (data) => {
-    // addContact(data);
+  const { addContact } = useContext(ContactContext);
+
+  const submit: SubmitHandler<iContectCreateItem> = (data) => {
+    addContact(data);
     reset();
   };
 
@@ -73,9 +75,7 @@ export const ContactForm = () => {
             buttonStyle="submit"
             disabled={!isDirty || !isValid || contactLoading}
           >
-            {contactLoading
-              ? "Cadastrando tecnologia..."
-              : "Cadastrar tecnologia"}
+            {contactLoading ? "Cadastrando contato..." : "Cadastrar contato"}
           </Button>
         </StyledForm>
       </StyledContactForm>

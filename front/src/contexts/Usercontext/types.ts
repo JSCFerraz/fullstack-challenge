@@ -28,8 +28,9 @@ export interface iUserProviderProps {
   loadingDashboard: boolean;
   registerUser: (formData: iUserRegisterInformation, reset: () => void) => void;
   logoutUser: () => void;
+  fetchClientInformation: () => void;
 }
 
 export interface iDefaultErrorResponse {
-  error: string;
+  message: string;
 }

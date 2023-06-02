@@ -20,22 +20,11 @@ const listAllContactsByClientIdService = async (
     id: clientId,
   });
 
-  const findAllcontacts: Contact[] | null = await contactRepo.find();
-
-  // const findClientContacts: Contact[] | null = await contactRepo
-  //   .createQueryBuilder("contacts")
-  //   .innerJoinAndSelect("contacts.registeredBy", "clients")
-  //   .where("contacts.registeredBy = :client", {
-  //     client: clientId,
-  //   })
-  //   .getMany();
-
-  // if (findClientContacts) {
-  //   throw new Error("This client contact aready exists.");
-  // }
-
-  // const contacts: Array<TContactResponse> =
-  //   multipleContactsResponseSchema.parse(findClientContacts);
+  const findAllcontacts: Contact[] | null = await contactRepo.find({
+    where: {
+      registeredBy: { id: clientId },
+    },
+  });
 
   return findAllcontacts!;
 };

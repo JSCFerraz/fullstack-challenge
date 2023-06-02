@@ -7,11 +7,14 @@ import { iChildren } from "../../interfaces/global";
 import {
   iContactInformation,
   iContactItem,
+  iContactProviderValue,
+  iContectCreateItem,
   iDefaultContactErrorResponse,
 } from "./types";
 import { AxiosError } from "axios";
+import { useLocation } from "react-router-dom";
 
-export const ContactContext = createContext({});
+export const ContactContext = createContext({} as iContactProviderValue);
 
 export const ContactProvider = ({ children }: iChildren) => {
   const [contacts, setContacts] = useState<[] | iContactItem[]>([]);
@@ -20,34 +23,57 @@ export const ContactProvider = ({ children }: iChildren) => {
   const [deleteContactLoading, setDeleteContactLoading] =
     useState<boolean>(false);
   const { setUser } = useContext(UserContext);
-  const [filteredContacts, setFilteredContacts] = useState(
-    [] as iContactItem[]
+  const [filteredContacts, setFilteredContacts] = useState<[] | iContactItem[]>(
+    []
   );
-
   const [showSearchInput, setShowSearchInput] = useState(false);
+  const location = useLocation();
+  console.log(location);
 
   useEffect(() => {
-    const token = localStorage.getItem("@Kenziehub:token");
     const getContacts = async () => {
-      try {
-        setContactLoading(true);
-        const response = await api.get(`/contacts`, {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        });
-        setContacts(response.data);
-        setFilteredContacts(response.data);
-      } catch (error) {
-        console.error(error);
-        const currentError = error as AxiosError<iDefaultContactErrorResponse>;
-        toast.error(`Ops! Algo deu errado: ${currentError.response?.data}`);
-      } finally {
-        setContactLoading(false);
+      const token: string | null = localStorage.getItem("@MyContacts:token");
+      if (token) {
+        try {
+          setContactLoading(false);
+          const response = await api.get(`/contacts`, {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          });
+          setContacts(response.data);
+          setFilteredContacts(response.data);
+        } catch (error) {
+          console.error(error);
+          const currentError =
+            error as AxiosError<iDefaultContactErrorResponse>;
+          toast.error(
+            `Ops! Algo deu errado: ${currentError.response?.data.message}`
+          );
+        } finally {
+          setContactLoading(false);
+        }
       }
     };
     getContacts();
-  }, []);
+  }, [location.pathname]);
+
+  const fetchClientContacts = async (): Promise<void> => {
+    const token = localStorage.getItem("@MyContacts:token");
+    const { data } = await api.get("/contacts", {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(token, data);
+    window.localStorage.setItem("@MyContacts:userid", data.id);
+    setUser({
+      id: data.id,
+      name: data.id,
+      email: data.email,
+      phone: data.phone,
+    });
+  };
 
   const filterSearchedContacts = (data: string) => {
     const searchedContacts: iContactItem[] = contacts.filter((contact) =>
@@ -72,7 +98,7 @@ export const ContactProvider = ({ children }: iChildren) => {
     }
   };
 
-  const addContact = async (formData: iContactInformation) => {
+  const addContact = async (formData: iContectCreateItem) => {
     try {
       setContactLoading(true);
       const token = localStorage.getItem("@MyContacts:token");
@@ -87,7 +113,9 @@ export const ContactProvider = ({ children }: iChildren) => {
     } catch (error) {
       const currentError = error as AxiosError<iDefaultContactErrorResponse>;
       console.error(error);
-      toast.error(`Ops! Algo deu errado: ${currentError.response?.data}`);
+      toast.error(
+        `Ops! Algo deu errado: ${currentError.response?.data.message}`
+      );
     } finally {
       setContactLoading(false);
     }
@@ -99,6 +127,9 @@ export const ContactProvider = ({ children }: iChildren) => {
   ) => {
     try {
       setContactLoading(true);
+      if (data.email === "") {
+        delete data.email;
+      }
       const token = localStorage.getItem("@Kenziehub:token");
       await api.patch(`/contacts/${contactId}`, data, {
         headers: {
@@ -111,7 +142,9 @@ export const ContactProvider = ({ children }: iChildren) => {
     } catch (error) {
       const currentError = error as AxiosError<iDefaultContactErrorResponse>;
       console.error(error);
-      toast.error(`Ops! Algo deu errado: ${currentError.response?.data}`);
+      toast.error(
+        `Ops! Algo deu errado: ${currentError.response?.data.message}`
+      );
     } finally {
       setContactLoading(false);
     }
@@ -143,16 +176,21 @@ export const ContactProvider = ({ children }: iChildren) => {
       value={{
         contacts,
         setContacts,
-        addContact,
-        updateContact,
-        removeContact,
         actionOverContact,
         setActionOverContact,
         contactLoading,
+        setContactLoading,
         deleteContactLoading,
+        setDeleteContactLoading,
         showSearchInput,
         setShowSearchInput,
+        filteredContacts,
+        setFilteredContacts,
         filterSearchedContacts,
+        addContact,
+        updateContact,
+        removeContact,
+        fetchClientContacts,
       }}
     >
       {children}

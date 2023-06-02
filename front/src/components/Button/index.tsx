@@ -1,9 +1,9 @@
-import { StyledLink } from "./style";
-import { StyledButton } from "../../styles/buttons";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext/UserContext";
 import { iButton } from "./types";
 import { ContactContext } from "../../contexts/ContactContext/ContactContext";
+import { StyledButton } from "../../styles/buttons";
+import { StyledLink } from "./style";
 
 export const Button = ({
   children,
@@ -13,11 +13,11 @@ export const Button = ({
   btnPosition,
 }: iButton) => {
   const { logoutUser } = useContext(UserContext);
-  // const { setOpenCartModal } = useContext(CartContext);
-  // const { showSearchInput, setShowSearchInput } = useContext(ProductContext);
+  const { setActionOverContact, showSearchInput, setShowSearchInput } =
+    useContext(ContactContext);
 
   const handleSearchBar = () => {
-    // showSearchInput ? setShowSearchInput(false) : setShowSearchInput(true);
+    showSearchInput ? setShowSearchInput(false) : setShowSearchInput(true);
   };
 
   return (
@@ -51,7 +51,7 @@ export const Button = ({
         <StyledButton
           type="button"
           buttonSize={buttonStyle}
-          // onClick={() => setActionOverContact("create")}
+          onClick={() => setActionOverContact("create")}
           disabled={false}
         >
           {children}
@@ -68,11 +68,12 @@ export const Button = ({
         </StyledButton>
       )}
 
-      {type === "modal" && (
+      {type === "delete" && (
         <StyledButton
           type="button"
           buttonSize={buttonStyle}
-          // onClick={() => setOpenCartModal(true)}
+          disabled={disabled}
+          btnPosition={btnPosition}
         >
           {children}
         </StyledButton>
@@ -92,7 +93,7 @@ export const Button = ({
         <StyledButton
           type="button"
           buttonSize={buttonStyle}
-          // onClick={() => setOpenCartModal(false)}
+          onClick={() => setActionOverContact("")}
           btnPosition="modal"
         >
           {children}

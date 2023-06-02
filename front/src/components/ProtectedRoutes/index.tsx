@@ -4,11 +4,10 @@ import { UserContext } from "../../contexts/UserContext/UserContext";
 import { StyledText } from "../../styles/typography";
 
 export const ProtectedRoutes = () => {
-  const { user, loadingHomePage } = useContext(UserContext);
+  const { user, loadingDashboard } = useContext(UserContext);
   const location = useLocation();
-  const { id, name, email } = user;
 
-  if (loadingHomePage) {
+  if (loadingDashboard) {
     return (
       <StyledText tag="h2" textStyle="title1" textColor="primary">
         Carregando...
@@ -16,9 +15,6 @@ export const ProtectedRoutes = () => {
     );
   }
 
-  return id === 0 && name === "" && email === "" ? (
-    <Navigate to="/" state={{ from: location }} />
-  ) : (
-    <Outlet />
-  );
+  return <Outlet />;
+  // return user.id ? <Outlet /> : <Navigate to="/" state={{ from: location }} />;
 };
