@@ -7,11 +7,23 @@ export interface iUserLoginInformation {
   password: string;
 }
 
+export interface iUserItem {
+  name: string;
+  email: string;
+  phone: string;
+}
+
 export interface iUserInformation {
   name: string;
   email: string;
   phone: string;
   id: number;
+}
+
+export interface iUserUpdate {
+  name: string;
+  email?: string;
+  phone: string;
 }
 
 export interface iUserRegisterInformation extends iUserLoginInformation {
@@ -28,7 +40,11 @@ export interface iUserProviderProps {
   loadingDashboard: boolean;
   registerUser: (formData: iUserRegisterInformation, reset: () => void) => void;
   logoutUser: () => void;
-  fetchClientInformation: () => void;
+  // fetchClientInformation: () => void;
+  updateUserProfile: (data: iUserItem) => void;
+  profileLoading: boolean;
+  actionOverProfile: boolean;
+  setActionOverProfile: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface iDefaultErrorResponse {

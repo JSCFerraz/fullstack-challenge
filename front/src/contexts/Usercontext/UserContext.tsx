@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { api } from "../../services/api";
@@ -11,9 +11,12 @@ import {
   iUserLoginInformation,
   iDefaultErrorResponse,
   iUserRegisterInformation,
+  iUserUpdate,
+  iUserItem,
 } from "./types";
 import jwtDecode from "jwt-decode";
 import { iDefaultContactErrorResponse } from "../ContactContext/types";
+import { ContactContext } from "../ContactContext/ContactContext";
 
 export const UserContext = createContext({} as iUserProviderProps);
 
@@ -26,6 +29,8 @@ export const UserProvider = ({ children }: iChildren) => {
   } as iUserInformation);
   const [loading, setLoading] = useState(false);
   const [loadingDashboard, setLoadingDashboard] = useState(true);
+  const [profileLoading, setProfileLoading] = useState<boolean>(false);
+  const [actionOverProfile, setActionOverProfile] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -68,32 +73,33 @@ export const UserProvider = ({ children }: iChildren) => {
     }
 
     loadUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
-  const fetchClientInformation = async (): Promise<void> => {
-    try {
-      const token: string | null = localStorage.getItem("@MyContacts:token");
-      if (token) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const decoded: any = await jwtDecode(token);
-        const { data } = await api.get("/clients", {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        });
-        console.log(token, data);
-        window.localStorage.setItem("@MyContacts:userid", data.id);
-        setUser({
-          id: data.id,
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-        });
-      }
-    } catch (err) {
-      console.log("222", err);
-    }
-  };
+  // const fetchClientInformation = async (): Promise<void> => {
+  //   try {
+  //     const token: string | null = localStorage.getItem("@MyContacts:token");
+  //     if (token) {
+  //       // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  //       const decoded: any = await jwtDecode(token);
+  //       const { data } = await api.get("/clients", {
+  //         headers: {
+  //           authorization: `Bearer ${token}`,
+  //         },
+  //       });
+  //       console.log(token, data);
+  //       window.localStorage.setItem("@MyContacts:userid", data.id);
+  //       setUser({
+  //         id: data.id,
+  //         name: data.name,
+  //         email: data.email,
+  //         phone: data.phone,
+  //       });
+  //     }
+  //   } catch (err) {
+  //     console.log("222", err);
+  //   }
+  // };
 
   const signInUserFunction = async (formData: iUserLoginInformation) => {
     try {
@@ -149,6 +155,51 @@ export const UserProvider = ({ children }: iChildren) => {
     navigate("/");
   };
 
+  const reloadUser = async () => {
+    try {
+      const token = localStorage.getItem("@MyContacts:token");
+      const { data } = await api.get(`/clients`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      setUser(data);
+      console.log("BBBBB", user);
+    } catch (error) {
+      console.error(error);
+      toast.error(`Ops! Algo deu errado: falha na comunicação!`);
+    }
+  };
+
+  const updateUserProfile = async (data: iUserItem) => {
+    try {
+      setProfileLoading(true);
+      console.log("*******", data);
+      const updateData: iUserUpdate = data;
+      if (data.email === user.email) {
+        delete updateData.email;
+      }
+      const userId = user.id;
+      const token = localStorage.getItem("@MyContacts:token");
+      await api.patch(`/clients/${userId}`, updateData, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success("Profile atualizado com sucesso!");
+      await reloadUser();
+      setActionOverProfile(false);
+    } catch (error) {
+      const currentError = error as AxiosError<iDefaultContactErrorResponse>;
+      console.error(error);
+      toast.error(
+        `Ops! Algo deu errado$$$: ${currentError.response?.data.message}`
+      );
+    } finally {
+      setProfileLoading(false);
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -160,7 +211,11 @@ export const UserProvider = ({ children }: iChildren) => {
         loadingDashboard,
         registerUser,
         logoutUser,
-        fetchClientInformation,
+        // fetchClientInformation,
+        updateUserProfile,
+        profileLoading,
+        actionOverProfile,
+        setActionOverProfile,
       }}
     >
       {children}

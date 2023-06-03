@@ -11,8 +11,9 @@ export const Button = ({
   buttonStyle,
   disabled,
   btnPosition,
+  onclick,
 }: iButton) => {
-  const { logoutUser } = useContext(UserContext);
+  const { logoutUser, setActionOverProfile } = useContext(UserContext);
   const { setActionOverContact, showSearchInput, setShowSearchInput } =
     useContext(ContactContext);
 
@@ -74,6 +75,19 @@ export const Button = ({
           buttonSize={buttonStyle}
           disabled={disabled}
           btnPosition={btnPosition}
+          onClick={onclick}
+        >
+          {children}
+        </StyledButton>
+      )}
+
+      {type === "modify" && (
+        <StyledButton
+          type="button"
+          buttonSize={buttonStyle}
+          disabled={disabled}
+          btnPosition={btnPosition}
+          onClick={() => setActionOverProfile(true)}
         >
           {children}
         </StyledButton>

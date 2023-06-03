@@ -24,5 +24,5 @@ export const registerFormSchema = yup.object().shape({
     .string()
     .required("O telefone é obrigatório")
     .min(10, "Telefone precisa ter mais de 10 caracteres ")
-    .max(11, "Telefone precisa ter menos de 12 caracteres "),
+    .max(11, "Telefone precisa ter menos de 13 caracteres "),
 });

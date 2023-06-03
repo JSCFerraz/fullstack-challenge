@@ -1,19 +1,22 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Container } from "../../styles/containers";
 import { StyledText } from "../../styles/typography";
 import { Button } from "../Button";
-import { StyledUserDashMain, StyledTechHeader } from "./style";
+import {
+  StyledUserDashMain,
+  StyledContactHeader,
+  StyledProfile,
+} from "./style";
 import { ContactModal } from "../../ContactModal";
 import { ContactList } from "../../ContactList";
-import { FaPlus } from "react-icons/fa";
 import { ContactContext } from "../../contexts/ContactContext/ContactContext";
 import { UserContext } from "../../contexts/UserContext/UserContext";
+import { ProfileModal } from "../ProfileModal";
 
 export const DashMain = () => {
   const page = "dashboard";
-  const { actionOverContact, fetchClientContacts, filteredContacts } =
-    useContext(ContactContext);
-  const { user } = useContext(UserContext);
+  const { actionOverContact } = useContext(ContactContext);
+  const { user, actionOverProfile } = useContext(UserContext);
 
   // useEffect(() => {
   //   const callFunctions = async () => {
@@ -25,16 +28,26 @@ export const DashMain = () => {
   return (
     <Container page={page}>
       <StyledUserDashMain>
-        <StyledTechHeader>
-          <StyledText tag="h2" textStyle="title1-white">
-            {`Contatos de ${user.name}`}
-          </StyledText>
+        <StyledContactHeader>
+          <StyledProfile>
+            <StyledText tag="h2" textStyle="title1-white">
+              {`Contatos de ${user.name}`}
+            </StyledText>
+            <Button type="modify" buttonStyle="icon">
+              Alterar Profile
+            </Button>
+          </StyledProfile>
           <Button type="addContactButton" buttonStyle="icon">
-            <FaPlus />
+            Adicionar Contato
           </Button>
-        </StyledTechHeader>
+        </StyledContactHeader>
         <ContactList />
-        {actionOverContact !== "" && <ContactModal />}
+
+        {actionOverContact !== "" && actionOverContact !== "change profile" && (
+          <ContactModal />
+        )}
+
+        {actionOverProfile === true && <ProfileModal />}
       </StyledUserDashMain>
     </Container>
   );

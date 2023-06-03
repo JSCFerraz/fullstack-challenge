@@ -35,6 +35,7 @@ export interface iContactProviderValue {
   updateContact: (data: iContactInformation, contactId: string) => void;
   removeContact: (contactId: string) => void;
   fetchClientContacts: () => void;
+  reloadContact: () => void;
 }
 
 export interface iDefaultContactErrorResponse {

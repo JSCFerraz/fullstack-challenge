@@ -19,11 +19,12 @@ import { StyledForm } from "../RegisterForm/style.ts";
 
 export const ContactFormDetails = ({ contactId }: iContactId) => {
   const { updateContact, removeContact } = useContext(ContactContext);
-  const { contactLoading, deleteContactLoading, contacts } =
+  const { contactLoading, deleteContactLoading, contacts, filteredContacts } =
     useContext(ContactContext);
   // const { user } = useContext(UserContext);
 
-  const userContacts = contacts.filter((item) => item.id === contactId);
+  console.log("contadId", contactId);
+  const userContacts = filteredContacts.filter((item) => item.id === contactId);
   console.log("$$$$", userContacts);
   console.log("contactLoading", contactLoading);
   console.log("deleteContactLoading", deleteContactLoading);
@@ -31,36 +32,42 @@ export const ContactFormDetails = ({ contactId }: iContactId) => {
   const {
     register,
     handleSubmit,
-    // formState: { errors, isDirty, isValid },
     formState: { errors },
-    reset,
+
     watch,
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(contactFormDetailsSchema),
+    defaultValues: {
+      name: userContacts[0].name,
+      email: userContacts[0].email,
+      phone: userContacts[0].phone,
+    },
   });
 
-  useEffect(() => {
-    const resetData = () => {
-      reset({
-        name: userContacts[0].name,
-        email: userContacts[0].email,
-        phone: userContacts[0].phone,
-      });
-    };
+  // useEffect(() => {
+  //   const resetData = () => {
+  //     reset({
+  //       name: userContacts[0].name,
+  //       email: userContacts[0].email,
+  //       phone: userContacts[0].phone,
+  //     });
+  //   };
 
-    resetData();
-  }, []);
+  //   resetData();
+  // }, []);
 
   const submit: SubmitHandler<FieldValues> = async (formData) => {
-    if (userContacts[0].email === formData.email) {
-      formData.email = "";
-    }
     const data: iContactInformation = {
       name: formData.name,
       email: formData.email,
       phone: formData.phone,
     };
+
+    if (userContacts[0].email === formData.email) {
+      data.email = "";
+    }
+    console.log("UPLOAD", data);
     updateContact(data, contactId);
   };
 
@@ -72,55 +79,31 @@ export const ContactFormDetails = ({ contactId }: iContactId) => {
             label="Nome"
             id="registerName"
             type="text"
-            placeholder="Digite o nome"
+            placeholder=""
             register={register("name")}
-            // error={errors.name}
+            error={errors.name}
             watch={watch("name")}
-            disabled={false}
           />
-          {/* <HelperTextDiv>
-            {errors.name?.message && (
-              <StyledText tag="span" textStyle="headline" textColor="primary">
-                {errors.name.message}
-              </StyledText>
-            )}
-          </HelperTextDiv> */}
 
           <SingleInput
-            label="Email"
+            label="E-mail"
             id="registerEmail"
-            type="text"
-            placeholder="Digite o email"
+            type="email"
+            placeholder=""
             register={register("email")}
-            disabled={false}
-            // error={errors.email}
+            error={errors.email}
             watch={watch("email")}
           />
-          {/* <HelperTextDiv>
-            {errors.email?.message && (
-              <StyledText tag="span" textStyle="headline" textColor="primary">
-                {errors.email.message}
-              </StyledText>
-            )}
-          </HelperTextDiv> */}
 
           <SingleInput
             label="Telefone"
             id="registerPhone"
             type="text"
-            placeholder="Digite o telefone"
+            placeholder=""
             register={register("phone")}
-            disabled={false}
-            // error={errors.phone}
+            error={errors.phone}
             watch={watch("phone")}
           />
-          {/* <HelperTextDiv>
-            {errors.phone?.message && (
-              <StyledText tag="span" textStyle="headline" textColor="primary">
-                {errors.phone.message}
-              </StyledText>
-            )}
-          </HelperTextDiv> */}
 
           <StyledText tag="span" textStyle="title3" textColor="grey">
             * Todos são campos obrigatórios
@@ -139,7 +122,7 @@ export const ContactFormDetails = ({ contactId }: iContactId) => {
               buttonStyle="delete"
               onclick={() => removeContact(contactId)}
             >
-              {deleteContactLoading ? "Excluindo..." : "Excluir"}
+              {deleteContactLoading ? "Excluindo..." : "Excluir Contato"}
             </Button>
           </StyledDetailsButtons>
         </StyledForm>

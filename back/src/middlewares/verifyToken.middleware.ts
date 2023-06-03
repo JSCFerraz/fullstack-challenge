@@ -8,7 +8,7 @@ const verifyTokenIsValidMiddleware = async (
   next: NextFunction
 ): Promise<Response | void> => {
   const authToken: string | undefined = req.headers.authorization;
-  console.log("BACK", authToken);
+  console.log("BACK 111", authToken);
   if (!authToken) {
     throw new AppError("Invalid token.", 401);
   }
@@ -19,6 +19,7 @@ const verifyTokenIsValidMiddleware = async (
     if (error) {
       throw new AppError(error.message, 401);
     }
+    console.log(decoded.sub);
     req.client = {
       clientId: decoded.sub,
     };

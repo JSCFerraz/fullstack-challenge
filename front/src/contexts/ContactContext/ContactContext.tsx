@@ -82,16 +82,33 @@ export const ContactProvider = ({ children }: iChildren) => {
     setFilteredContacts(searchedContacts);
   };
 
-  const reloadUser = async () => {
-    const token = localStorage.getItem("@MyContacts:token");
-    const userId = localStorage.getItem("@MyContacts:userid");
+  // const reloadUser = async () => {
+  //   const token = localStorage.getItem("@MyContacts:token");
+
+  //   try {
+  //     const { data } = await api.get(`/clients`, {
+  //       headers: {
+  //         authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     setUser(data);
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error(`Ops! Algo deu errado: falha na comunicação!`);
+  //   }
+  // };
+
+  const reloadContact = async () => {
     try {
-      const { data } = await api.get(`/clients/${userId}`, {
+      console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
+      const token = localStorage.getItem("@MyContacts:token");
+      const { data } = await api.get(`/contacts`, {
         headers: {
           authorization: `Bearer ${token}`,
         },
       });
-      setUser(data);
+      setContacts(data);
+      setFilteredContacts(data);
     } catch (error) {
       console.error(error);
       toast.error(`Ops! Algo deu errado: falha na comunicação!`);
@@ -100,21 +117,23 @@ export const ContactProvider = ({ children }: iChildren) => {
 
   const addContact = async (formData: iContectCreateItem) => {
     try {
+      console.log("AAAAAAAAAAA", formData);
       setContactLoading(true);
       const token = localStorage.getItem("@MyContacts:token");
-      await api.post("/contacts", formData, {
+      const { data } = await api.post("/contacts", formData, {
         headers: {
           authorization: `Bearer ${token}`,
         },
       });
+      console.log("DATA", data);
       toast.success("Contato cadastrado com sucesso!");
       setActionOverContact("");
-      await reloadUser();
+      await reloadContact();
     } catch (error) {
       const currentError = error as AxiosError<iDefaultContactErrorResponse>;
       console.error(error);
       toast.error(
-        `Ops! Algo deu errado: ${currentError.response?.data.message}`
+        `Ops! Algo deu erradoCREATE: ${currentError.response?.data.message}`
       );
     } finally {
       setContactLoading(false);
@@ -130,7 +149,7 @@ export const ContactProvider = ({ children }: iChildren) => {
       if (data.email === "") {
         delete data.email;
       }
-      const token = localStorage.getItem("@Kenziehub:token");
+      const token = localStorage.getItem("@MyContacts:token");
       await api.patch(`/contacts/${contactId}`, data, {
         headers: {
           authorization: `Bearer ${token}`,
@@ -138,7 +157,7 @@ export const ContactProvider = ({ children }: iChildren) => {
       });
       toast.success("Contato atualizado com sucesso!");
       setActionOverContact("");
-      await reloadUser();
+      await reloadContact();
     } catch (error) {
       const currentError = error as AxiosError<iDefaultContactErrorResponse>;
       console.error(error);
@@ -151,9 +170,10 @@ export const ContactProvider = ({ children }: iChildren) => {
   };
 
   const removeContact = async (contactId: string) => {
+    console.log("contactID", contactId);
     try {
       setDeleteContactLoading(true);
-      const token = localStorage.getItem("@Kenziehub:token");
+      const token = localStorage.getItem("@MyContacts:token");
       await api.delete(`/contacts/${contactId}`, {
         headers: {
           authorization: `Bearer ${token}`,
@@ -161,7 +181,8 @@ export const ContactProvider = ({ children }: iChildren) => {
       });
       toast.success("Contato excluido com sucesso!");
       setActionOverContact("");
-      await reloadUser();
+
+      await reloadContact();
     } catch (error) {
       const currentError = error as AxiosError<iDefaultContactErrorResponse>;
       console.error(error);
@@ -191,6 +212,7 @@ export const ContactProvider = ({ children }: iChildren) => {
         updateContact,
         removeContact,
         fetchClientContacts,
+        reloadContact,
       }}
     >
       {children}

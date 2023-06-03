@@ -5,19 +5,16 @@ import { ContactForm } from "../components/Forms/ContactForm";
 import { ContactContext } from "../contexts/ContactContext/ContactContext";
 import { useContext } from "react";
 import { ContactFormDetails } from "../components/Forms/ContactFormDetails";
-
-interface iModalContactProps {
-  contactAction: string;
-}
+import { AiOutlineClose } from "react-icons/ai";
 
 export const ContactModal = () => {
   const { actionOverContact } = useContext(ContactContext);
-
+  console.log("CONTACT MODAL", actionOverContact);
   return actionOverContact === "create" ? (
     <Modal>
       <ModalBox>
         <Button type="closeModal" buttonStyle="icon">
-          X
+          <AiOutlineClose />
         </Button>
         <StyledContactTitle>
           <StyledText tag="h3" textStyle="title1-white">
@@ -31,7 +28,7 @@ export const ContactModal = () => {
     <Modal>
       <ModalBox>
         <Button type="closeModal" buttonStyle="icon">
-          X
+          <AiOutlineClose />
         </Button>
         <StyledContactTitle>
           <StyledText tag="h3" textStyle="title1-white">
