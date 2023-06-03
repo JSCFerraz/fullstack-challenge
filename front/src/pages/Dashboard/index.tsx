@@ -1,19 +1,34 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { Header } from "../../components/Header";
-import { ContactProvider } from "../../contexts/ContactContext/ContactContext";
 import { UserContext } from "../../contexts/UserContext/UserContext";
 import { DashMain } from "../../components/DashMain";
+import { ContactContext } from "../../contexts/ContactContext/ContactContext";
 
 export const Dashboard = () => {
   const { user } = useContext(UserContext);
+  // const { fetchClientContacts } = useContext(ContactContext);
 
-  return user ? (
+  // useEffect(() => {
+  //   console.log("%%%%%%%%%%%%%%%%%%%%%%%%");
+  //   const callFunctions = async () => {
+  //     fetchClientInformation();
+  //     fetchClientContacts();
+  //   };
+  //   callFunctions();
+  // }, []);
+
+  // return (
+  //   <>
+  //     <Header />
+  //     <DashMain />
+  //   </>
+  // );
+
+  return user.id ? (
     <>
-      <ContactProvider>
-        <Header />
-        <DashMain />
-      </ContactProvider>
+      <Header />
+      <DashMain />
     </>
   ) : (
     <Navigate to="/" />

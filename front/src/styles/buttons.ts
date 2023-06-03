@@ -54,10 +54,49 @@ export const StyledButton = styled.button<iStyledButton>`
           display: flex;
           justify-content: center;
           line-height: 3.5rem;
+          height: 3rem;
           font-size: var(--font-size-16);
           color: var(--color-grey-0);
           background-color: var(--color-primary);
           border: 1px solid var(--color-primary);
+
+          /* &:hover {
+            background-color: var(--color-primary-hover);
+          } */
+        `;
+      case "delete":
+        return css`
+          min-width: 30%;
+          padding: 0 1.5rem;
+          height: 3rem;
+          display: flex;
+          justify-content: center;
+          line-height: 4rem;
+          font-size: var(--font-size-16);
+          color: var(--color-grey-4);
+          background-color: var(--color-primary);
+          border: 1px solid var(--color-primary);
+
+          /* &:hover {
+            background-color: var(--color-primary-hover);
+          } */
+        `;
+      case "modifyProfile":
+        return css`
+          min-width: 30%;
+          padding: 0 1.5rem;
+          height: 3rem;
+          display: flex;
+          justify-content: center;
+          line-height: 4rem;
+          font-size: var(--font-size-16);
+          color: var(--color-grey-4);
+          background-color: var(--color-primary);
+          border: 1px solid var(--color-primary);
+
+          /* &:hover {
+            background-color: var(--color-primary-hover);
+          } */
         `;
       case "closeModal":
         return css`
@@ -70,7 +109,7 @@ export const StyledButton = styled.button<iStyledButton>`
           color: var(--color-grey0);
 
           &:hover {
-            color: var(--color-grey-100);
+            background-color: var(--color-primary-hover);
           }
         `;
       case "search":
@@ -108,58 +147,6 @@ export const StyledButton = styled.button<iStyledButton>`
 
           &:hover {
             background-color: var(--color-primary-hover);
-          }
-        `;
-      case "cart":
-        return css`
-          min-width: 90%;
-          height: 3.5rem;
-          padding: 0 1.2rem;
-          margin: 0 1.5rem;
-          display: flex;
-          justify-content: center;
-          margin: 1rem;
-          line-height: 3.5rem;
-          font-size: var(--font-size-16);
-          color: var(--color-grey50);
-          background-color: var(--color-grey20);
-
-          &:hover {
-            color: var(--color-grey20);
-            background-color: var(--color-grey50);
-          }
-        `;
-      case "addToCart":
-        return css`
-          height: 2.5rem;
-          padding: 0 1.2rem;
-          margin: 0 1.5rem;
-          display: flex;
-          justify-content: center;
-          margin: 1rem;
-          line-height: 3.5rem;
-          font-size: var(--font-size-16);
-          color: var(--color-grey0);
-          background-color: var(--color-grey20);
-
-          &:hover {
-            color: var(--color-grey0);
-            background-color: var(--color-primary);
-          }
-        `;
-      case "counter":
-        return css`
-          width: 1rem;
-          height: 1rem;
-          border: none;
-          background-color: var(--color-grey20);
-          padding: 0.25rem;
-          color: var(--color-grey100);
-          background-color: var(--color-grey20);
-          border-radius: var(--radius-2);
-          &:hover {
-            background-color: var(--color-grey50);
-            color: var(--color-white);
           }
         `;
       default:

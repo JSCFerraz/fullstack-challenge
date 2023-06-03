@@ -1,20 +1,25 @@
 export interface iContactInformation {
   name: string;
-  email: string;
+  email?: string;
   phone: string;
 }
 
 export interface iContactItem {
-  id: number;
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+}
+
+export interface iContectCreateItem {
   name: string;
   email: string;
   phone: string;
 }
 
 export interface iContactProviderValue {
-  addContact: (formData: iContactInformation) => void;
-  updateContact: (formData: iContactInformation) => void;
-  removeContact: (formData: iContactInformation) => void;
+  contacts: iContactItem[];
+  setContacts: React.Dispatch<React.SetStateAction<iContactItem[] | []>>;
   actionOverContact: string;
   setActionOverContact: React.Dispatch<React.SetStateAction<string>>;
   contactLoading: boolean;
@@ -23,9 +28,16 @@ export interface iContactProviderValue {
   setDeleteContactLoading: React.Dispatch<React.SetStateAction<boolean>>;
   showSearchInput: boolean;
   setShowSearchInput: React.Dispatch<React.SetStateAction<boolean>>;
-  filteredSearchedContacts: (data: string) => void;
+  filterSearchedContacts: (data: string) => void;
+  filteredContacts: iContactItem[];
+  setFilteredContacts: React.Dispatch<React.SetStateAction<iContactItem[]>>;
+  addContact: (formData: iContectCreateItem) => void;
+  updateContact: (data: iContactInformation, contactId: string) => void;
+  removeContact: (contactId: string) => void;
+  fetchClientContacts: () => void;
+  reloadContact: () => void;
 }
 
 export interface iDefaultContactErrorResponse {
-  error: string;
+  message: string;
 }

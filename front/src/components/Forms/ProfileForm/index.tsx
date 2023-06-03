@@ -3,37 +3,45 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SingleInput } from "../../Input";
 import { StyledText } from "../../../styles/typography";
-import { StyledContactForm } from "./style";
+import { StyledProfileForm } from "./style";
 import { Container } from "../../../styles/containers";
 import { Button } from "../../Button";
-import { ContactContext } from "../../../contexts/ContactContext/ContactContext";
 import { StyledForm } from "../RegisterForm/style";
-import { contactFormSchema } from "./contactFormSchema";
-import { iContectCreateItem } from "../../../contexts/ContactContext/types";
+import { profileFormSchema } from "./ProfileFormSchema";
+import { UserContext } from "../../../contexts/UserContext/UserContext";
+import { iProfileFormValues } from "./types";
+import { ContactContext } from "../../../contexts/ContactContext/ContactContext";
 
-export const ContactForm = () => {
+export const ProfileForm = () => {
+  const { user, updateUserProfile, profileLoading } = useContext(UserContext);
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty, isValid },
+    formState: { errors },
     reset,
     watch,
   } = useForm({
     mode: "onChange",
-    resolver: yupResolver(contactFormSchema),
-    defaultValues: { name: "", email: "", phone: "" },
+    resolver: yupResolver(profileFormSchema),
+    defaultValues: { name: user.name, email: user.email, phone: user.phone },
   });
 
-  const { addContact, contactLoading } = useContext(ContactContext);
+  const submit: SubmitHandler<iProfileFormValues> = (formData) => {
+    const data: iProfileFormValues = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+    };
 
-  const submit: SubmitHandler<iContectCreateItem> = (data) => {
-    addContact(data);
+    console.log("UPDATE PROFILE", data);
+    updateUserProfile(data);
     reset();
   };
 
   return (
     <Container>
-      <StyledContactForm>
+      <StyledProfileForm>
         <StyledForm onSubmit={handleSubmit(submit)} noValidate>
           <SingleInput
             label="Nome"
@@ -68,15 +76,11 @@ export const ContactForm = () => {
           <StyledText tag="span" textStyle="title3" textColor="grey">
             * Campos obrigatórios
           </StyledText>
-          <Button
-            type="submit"
-            buttonStyle="submit"
-            disabled={!isDirty || !isValid || contactLoading}
-          >
-            {contactLoading ? "Cadastrando contato..." : "Cadastrar contato"}
+          <Button type="submit" buttonStyle="submit" disabled={profileLoading}>
+            {profileLoading ? "Alterando profile..." : "Alterar profile"}
           </Button>
         </StyledForm>
-      </StyledContactForm>
+      </StyledProfileForm>
     </Container>
   );
 };

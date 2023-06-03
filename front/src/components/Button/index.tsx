@@ -1,9 +1,9 @@
-import { StyledLink } from "./style";
-import { StyledButton } from "../../styles/buttons";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext/UserContext";
 import { iButton } from "./types";
 import { ContactContext } from "../../contexts/ContactContext/ContactContext";
+import { StyledButton } from "../../styles/buttons";
+import { StyledLink } from "./style";
 
 export const Button = ({
   children,
@@ -11,13 +11,14 @@ export const Button = ({
   buttonStyle,
   disabled,
   btnPosition,
+  onclick,
 }: iButton) => {
-  const { logoutUser } = useContext(UserContext);
-  // const { setOpenCartModal } = useContext(CartContext);
-  // const { showSearchInput, setShowSearchInput } = useContext(ProductContext);
+  const { logoutUser, setActionOverProfile } = useContext(UserContext);
+  const { setActionOverContact, showSearchInput, setShowSearchInput } =
+    useContext(ContactContext);
 
   const handleSearchBar = () => {
-    // showSearchInput ? setShowSearchInput(false) : setShowSearchInput(true);
+    showSearchInput ? setShowSearchInput(false) : setShowSearchInput(true);
   };
 
   return (
@@ -51,7 +52,7 @@ export const Button = ({
         <StyledButton
           type="button"
           buttonSize={buttonStyle}
-          // onClick={() => setActionOverContact("create")}
+          onClick={() => setActionOverContact("create")}
           disabled={false}
         >
           {children}
@@ -68,11 +69,25 @@ export const Button = ({
         </StyledButton>
       )}
 
-      {type === "modal" && (
+      {type === "delete" && (
         <StyledButton
           type="button"
           buttonSize={buttonStyle}
-          // onClick={() => setOpenCartModal(true)}
+          disabled={disabled}
+          btnPosition={btnPosition}
+          onClick={onclick}
+        >
+          {children}
+        </StyledButton>
+      )}
+
+      {type === "modify" && (
+        <StyledButton
+          type="button"
+          buttonSize={buttonStyle}
+          disabled={disabled}
+          btnPosition={btnPosition}
+          onClick={() => setActionOverProfile(true)}
         >
           {children}
         </StyledButton>
@@ -92,7 +107,7 @@ export const Button = ({
         <StyledButton
           type="button"
           buttonSize={buttonStyle}
-          // onClick={() => setOpenCartModal(false)}
+          onClick={() => setActionOverContact("")}
           btnPosition="modal"
         >
           {children}

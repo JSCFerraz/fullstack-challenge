@@ -14,19 +14,12 @@ const createContactService = async (
   contactData: TContact,
   clientId: string
 ): Promise<TContactResponse> => {
-  const { email } = contactData;
+  console.log("BACKBACK", clientId);
   const contactRepository: TContactRepo = AppDataSource.getRepository(Contact);
   const clientRepository: TClientRepo = AppDataSource.getRepository(Client);
 
-  // const findContacts: Contact | null = await contactRepository.findOne({
-  //   where: {
-  //     email: email,
-  //   },
-  // });
-  const findClient: Client | null = await clientRepository.findOne({
-    where: {
-      id: clientId,
-    },
+  const findClient: Client | null = await clientRepository.findOneBy({
+    id: clientId,
   });
   console.log(findClient);
 

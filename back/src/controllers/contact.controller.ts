@@ -28,7 +28,7 @@ const listAllContactsByClientIdController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const clientId = res.locals.clientId;
+  const clientId = req.client.clientId;
   const allContacts: Contact[] | null = await listAllContactsByClientIdService(
     clientId
   );
