@@ -19,10 +19,8 @@ const updateClientController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const client: TClientResponse = await updateClientService(
-    req.body,
-    req.params.id
-  );
+  const clientId: string = req.params.id;
+  const client: TClientResponse = await updateClientService(req.body, clientId);
   return res.status(200).json(client);
 };
 
@@ -30,8 +28,8 @@ const deleteClientController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const userId: string = req.params.id;
-  await deleteClientService(userId);
+  const clientId: string = req.params.id;
+  await deleteClientService(clientId);
   return res.status(204).json();
 };
 
@@ -42,7 +40,6 @@ const listClientController = async (
   const clientId = req.client.clientId;
 
   const client: TClientResponse = await listClientService(clientId);
-  console.log("*****", clientId, client);
 
   return res.status(200).json(client);
 };

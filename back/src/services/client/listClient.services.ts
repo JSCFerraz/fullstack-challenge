@@ -13,7 +13,6 @@ const listClientService = async (
   clientId: string
 ): Promise<TClientResponse> => {
   const clientRepo: TClientRepo = AppDataSource.getRepository(Client);
-  console.log("BACK", clientId);
   const client = await clientRepo.findOne({
     where: {
       id: clientId,
