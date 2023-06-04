@@ -19,8 +19,9 @@ const createClientService = async (
   });
 
   if (findClient) {
-    throw new AppError("Client aready exists.");
+    throw new AppError("Client aready exists.", 409);
   }
+
   const client: TClient = clientRepository.create(userData);
 
   await clientRepository.save(client);

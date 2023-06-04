@@ -19,7 +19,6 @@ const verifyContactEmailExistsMiddleware = async (
       },
     });
 
-    console.log("params", req.params.id);
     if (findContactEmail) {
       if (findContactEmail.id !== req.params.id) {
         throw new AppError("Contact email already exists.", 409);

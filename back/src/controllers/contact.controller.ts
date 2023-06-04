@@ -15,7 +15,7 @@ const createContactController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const clientId = res.locals.clientId;
+  const clientId = req.client.clientId;
   const newContact: TContactResponse = await createContactService(
     req.body,
     clientId
@@ -40,10 +40,12 @@ const updateContactController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const clientId = res.locals.clientId;
+  const contactId: string = req.params.id;
+  const clientId: string = req.client.clientId;
+
   const contact: TContactUpdateResponse | void = await updateContactService(
     req.body,
-    req.params.id,
+    contactId,
     clientId
   );
   return res.status(200).json(contact);
