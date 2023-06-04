@@ -3,12 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerFormSchema } from "./registerFormSchema";
 import { SingleInput } from "../../Input";
-import {
-  StyledRegForm,
-  HelperTextDiv,
-  StyledRegisterTitle,
-  StyledForm,
-} from "./style";
+import { StyledRegForm, StyledRegisterTitle, StyledForm } from "./style";
 import { Container } from "../../../styles/containers";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";

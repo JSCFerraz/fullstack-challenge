@@ -14,6 +14,6 @@ export const profileFormSchema = yup.object().shape({
   phone: yup
     .string()
     .required("O telefone é obrigatório")
-    .min(10, "Telefone precisa ter mais de 10 caracteres ")
-    .max(11, "Telefone precisa ter menos de 12 caracteres "),
+    .min(8, "Telefone com 8 caracteres no mínimo ")
+    .max(15, "Telefone com 15 caracteres no máximo "),
 });
