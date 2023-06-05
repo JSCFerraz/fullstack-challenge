@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SingleInput } from "../../Input";
-import { HelperTextDiv, StyledForm } from "../RegisterForm/style";
+import { StyledForm } from "../RegisterForm/style";
 import { Button } from "../../Button";
 import { useContext } from "react";
 import { UserContext } from "../../../contexts/UserContext/UserContext";
@@ -30,9 +30,7 @@ export const LoginForm = () => {
   });
 
   const submit: SubmitHandler<iLoginFormValues> = (formData) => {
-    console.log(formData);
     signInUserFunction(formData);
-    console.log("PASSOU");
   };
 
   return (
@@ -53,13 +51,6 @@ export const LoginForm = () => {
             error={errors.email}
             watch={watch("email")}
           />
-          {/* <HelperTextDiv>
-            {errors.email?.message && (
-              <StyledText tag="span" textStyle="headline" textColor="error">
-                {errors.email.message}
-              </StyledText>
-            )}
-          </HelperTextDiv> */}
 
           <SingleInput
             label="Senha"
@@ -70,13 +61,6 @@ export const LoginForm = () => {
             error={errors.password}
             watch={watch("password")}
           />
-          {/* <HelperTextDiv>
-            {errors.password?.message && (
-              <StyledText tag="span" textStyle="headline" textColor="error">
-                {errors.password.message}
-              </StyledText>
-            )}
-          </HelperTextDiv> */}
 
           <Button
             type="submit"

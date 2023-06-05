@@ -1,13 +1,11 @@
 import { LoginForm } from "../../components/Forms/LoginForm";
 import {
-  StyledBoxIcon,
-  StyledEllipsesGroupImg,
   StyledLoginDiv,
   StyledLoginFormDiv,
   StyledMessageDiv,
   StyledPageSideInfo,
 } from "./style";
-import contacts from "../../assets/img/imagemForms.png";
+import contacts from "./../../assets/img/imagemForms.png";
 import { StyledText } from "../../styles/typography";
 
 export const Login = () => {

@@ -7,7 +7,6 @@ import { StyledText } from "../styles/typography";
 
 export const ContactCard = ({ id, name, email, phone }: iContact) => {
   const { setActionOverContact } = useContext(ContactContext);
-  console.log(`${id}`, typeof id);
 
   return (
     <StyledContactCard

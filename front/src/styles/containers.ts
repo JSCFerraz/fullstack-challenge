@@ -23,9 +23,6 @@ export const Container = styled.div<icontainer>`
         @media (min-width: 900px) {
           max-width: 950px;
         }
-        /* @media (min-width: 1100px) {
-          max-width: 1200px;
-        } */
       `;
     }
   }}

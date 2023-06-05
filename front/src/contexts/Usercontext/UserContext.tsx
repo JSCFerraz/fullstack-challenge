@@ -41,19 +41,16 @@ export const UserProvider = ({ children }: iChildren) => {
     async function loadUser() {
       console.log(!token);
       if (!token) {
-        console.log("Entrou aqui");
         setLoadingDashboard(false);
         return;
       } else {
-        console.log("****************");
         try {
-          console.log("TENTANDO...");
           const { data } = await api.get("/clients", {
             headers: {
               authorization: `Bearer ${token}`,
             },
           });
-          console.log("DATA", data);
+
           setUser(data);
 
           navigate("/dashboard");
@@ -75,31 +72,6 @@ export const UserProvider = ({ children }: iChildren) => {
     loadUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
-
-  // const fetchClientInformation = async (): Promise<void> => {
-  //   try {
-  //     const token: string | null = localStorage.getItem("@MyContacts:token");
-  //     if (token) {
-  //       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  //       const decoded: any = await jwtDecode(token);
-  //       const { data } = await api.get("/clients", {
-  //         headers: {
-  //           authorization: `Bearer ${token}`,
-  //         },
-  //       });
-  //       console.log(token, data);
-  //       window.localStorage.setItem("@MyContacts:userid", data.id);
-  //       setUser({
-  //         id: data.id,
-  //         name: data.name,
-  //         email: data.email,
-  //         phone: data.phone,
-  //       });
-  //     }
-  //   } catch (err) {
-  //     console.log("222", err);
-  //   }
-  // };
 
   const signInUserFunction = async (formData: iUserLoginInformation) => {
     try {
@@ -211,7 +183,6 @@ export const UserProvider = ({ children }: iChildren) => {
         loadingDashboard,
         registerUser,
         logoutUser,
-        // fetchClientInformation,
         updateUserProfile,
         profileLoading,
         actionOverProfile,

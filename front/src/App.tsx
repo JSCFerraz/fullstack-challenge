@@ -3,7 +3,6 @@ import { RoutesMain } from "./routes";
 import { GlobalStyle } from "./styles/GlobalStyle";
 import { UserProvider } from "./contexts/UserContext/UserContext";
 import { ContactProvider } from "./contexts/ContactContext/ContactContext";
-// import { ContactProvider } from "./contexts/ContactContext/ContactContext";
 
 export const App = () => {
   return (
