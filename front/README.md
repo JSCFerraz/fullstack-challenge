@@ -1,8 +1,6 @@
 # fullstack-challenge
 
-deployed in Vercel: https://react-entrega-hamburgueria-da-kenzie-typescript-jscferraz.vercel.app
-
-API: https://github.com/JSCFerraz/fullstack-challenge/tree/main/back
+Deployed in Pages: https://jscferraz.github.io/fullstack-challenge/
 
 API Deloy: https://fullstack-challenge-back-t4hh.onrender.com
 
@@ -12,33 +10,31 @@ This project was bootstrapped with [create-vite-app](https://github.com/vitejs/c
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory:
 
 ### `npm install`
 
-Instala todas as dependências da aplicação
+To install all project dependencies
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### `npm run dev
 
 ### `npm run dev`
+
+Runs the app in the development mode.\
+Open [http://localhost:PORT](http://localhost:PORT) to view it in the browser, where PORT will be given buy vite.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `yarn build`
+### `npm run build`
 
-Builds the app for production to the `build` folder.\
+Builds the app for production to the `build` folder.\dist
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
+### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
