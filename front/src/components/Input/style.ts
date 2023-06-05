@@ -1,5 +1,4 @@
-import styled, { css, StyledComponent } from "styled-components";
-import { iChildren } from "../../interfaces/global";
+import styled, { css } from "styled-components";
 import { iIsActive } from "./types";
 
 export const StyledInput = styled.input`
