@@ -1,22 +1,20 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { api } from "../../services/api";
 import { iChildren } from "../../interfaces/global";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
+import { iDefaultContactErrorResponse } from "../ContactContext/types";
 import {
   iUserProviderProps,
   iUserInformation,
   iUserLoginInformation,
   iDefaultErrorResponse,
   iUserRegisterInformation,
-  iUserUpdate,
   iUserItem,
+  iUserUpdate,
 } from "./types";
-import jwtDecode from "jwt-decode";
-import { iDefaultContactErrorResponse } from "../ContactContext/types";
-import { ContactContext } from "../ContactContext/ContactContext";
 
 export const UserContext = createContext({} as iUserProviderProps);
 
