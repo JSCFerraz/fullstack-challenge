@@ -16,6 +16,9 @@ import {
   iUserUpdate,
 } from "./types";
 
+import { iDefaultContactErrorResponse } from "../ContactContext/types";
+
+
 export const UserContext = createContext({} as iUserProviderProps);
 
 export const UserProvider = ({ children }: iChildren) => {
@@ -73,14 +76,13 @@ export const UserProvider = ({ children }: iChildren) => {
 
   const signInUserFunction = async (formData: iUserLoginInformation) => {
     try {
-      console.log(formData);
       setLoading(true);
-      console.log("SIGNINUSER");
+
       const response = await api.post("/login", formData);
-      console.log(response.data, response.data);
+
       toast.success("Usuário logado com sucesso");
       const { token } = response.data;
-      console.log("TOKEN", token);
+
       window.localStorage.setItem("@MyContacts:token", token);
       navigate("/dashboard");
     } catch (error) {
