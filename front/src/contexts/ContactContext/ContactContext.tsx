@@ -101,7 +101,7 @@ export const ContactProvider = ({ children }: iChildren) => {
     try {
       setContactLoading(true);
       const token = localStorage.getItem("@MyContacts:token");
-      const { data } = await api.post("/contacts", formData, {
+      await api.post("/contacts", formData, {
         headers: {
           authorization: `Bearer ${token}`,
         },
