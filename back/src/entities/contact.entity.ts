@@ -33,7 +33,7 @@ class Contact {
   @DeleteDateColumn({ type: "date" })
   deletedAt: Date | string;
 
-  @ManyToOne(() => Client)
+  @ManyToOne(() => Client, (client) => client.contacts)
   registeredBy: Client;
 }
 export { Contact };

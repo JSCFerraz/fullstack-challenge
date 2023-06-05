@@ -1,20 +1,27 @@
-import { StyledTechCard } from "./style";
-import { StyledText } from "../../styles/typography";
+import { StyledContactCard } from "./style";
 import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
-import { TechContext } from "../../contexts/TechContext";
+import { ContactContext } from "../contexts/ContactContext/ContactContext";
+import { iContact } from "./types";
+import { StyledText } from "../styles/typography";
 
-export const ContactCard = ({ id, name, status }) => {
-  const { setActionOverTech } = useContext(TechContext);
+export const ContactCard = ({ id, name, email, phone }: iContact) => {
+  const { setActionOverContact } = useContext(ContactContext);
 
   return (
-    <StyledTechCard id={id} onClick={() => setActionOverTech(id)}>
-      <StyledText tag="h3" textStyle="title2">
+    <StyledContactCard
+      id={`${id}`}
+      onClick={() => setActionOverContact(`${id}`)}
+    >
+      <StyledText tag="h3" textStyle="title2-white">
         {name}
       </StyledText>
-      <StyledText tag="p" textStyle="categoryCart">
-        {status}
+      <StyledText tag="h3" textStyle="title2-white">
+        {email}
       </StyledText>
-    </StyledTechCard>
+      <StyledText tag="h3" textStyle="title2-white">
+        {phone}
+      </StyledText>
+    </StyledContactCard>
   );
 };

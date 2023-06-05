@@ -15,30 +15,18 @@ const listAllContactsByClientIdService = async (
   clientId: string
 ): Promise<Contact[]> => {
   const contactRepo: TContactRepo = AppDataSource.getRepository(Contact);
-
   const clientRepo: TClientRepo = AppDataSource.getRepository(Client);
   const findClient: Client | null = await clientRepo.findOneBy({
     id: clientId,
   });
 
-  const findClientContacts: Contact[] | null = await contactRepo
-    .createQueryBuilder("contacts")
-    .innerJoinAndSelect("contacts.registeredBy", "clients")
-    .where("contacts.registeredBy = :client", {
-      client: clientId,
-    })
-    .getMany();
+  const findAllcontacts: Contact[] | null = await contactRepo.find({
+    where: {
+      registeredBy: { id: clientId },
+    },
+  });
 
-  // console.log(findClientContacts);
-
-  // if (findClientContacts) {
-  //   throw new Error("This client contact aready exists.");
-  // }
-
-  // const contacts: Array<TContactResponse> =
-  //   multipleContactsResponseSchema.parse(findClientContacts);
-
-  return findClientContacts!;
+  return findAllcontacts!;
 };
 
 export default listAllContactsByClientIdService;

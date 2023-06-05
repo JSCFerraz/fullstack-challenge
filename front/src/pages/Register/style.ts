@@ -24,7 +24,6 @@ export const StyledLoginDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: var(--color-grey-3); */
   border-radius: var(--radius-1);
   margin: 0 auto;
   position: relative;
@@ -54,11 +53,7 @@ export const StyledPageSideInfo = styled.div`
   top: 80px;
   margin: 0 auto;
 
-  /* &:hover {
-    background-color: var(--color-grey-2);
-  } */
-
-  img {
+  & > img {
     max-width: 20rem;
   }
 

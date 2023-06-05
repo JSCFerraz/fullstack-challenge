@@ -1,9 +1,9 @@
-import { createContext, useEffect, useImperativeHandle, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { api } from "../../services/api";
 import { iChildren } from "../../interfaces/global";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 import {
   iUserProviderProps,
@@ -11,7 +11,12 @@ import {
   iUserLoginInformation,
   iDefaultErrorResponse,
   iUserRegisterInformation,
+  iUserUpdate,
+  iUserItem,
 } from "./types";
+import jwtDecode from "jwt-decode";
+import { iDefaultContactErrorResponse } from "../ContactContext/types";
+import { ContactContext } from "../ContactContext/ContactContext";
 
 export const UserContext = createContext({} as iUserProviderProps);
 
@@ -23,35 +28,41 @@ export const UserProvider = ({ children }: iChildren) => {
     phone: "",
   } as iUserInformation);
   const [loading, setLoading] = useState(false);
-  const [loadingDashboard, setLoadingDashboard] = useState(false);
+  const [loadingDashboard, setLoadingDashboard] = useState(true);
+  const [profileLoading, setProfileLoading] = useState<boolean>(false);
+  const [actionOverProfile, setActionOverProfile] = useState<boolean>(false);
+
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const token = localStorage.getItem("@MyContacts:token");
-    const userId = localStorage.getItem("@MyContacts:userid");
-    console.log("Entrou aqui1", token, useImperativeHandle);
 
     async function loadUser() {
+      console.log(!token);
       if (!token) {
-        console.log("Entrou aqui");
         setLoadingDashboard(false);
         return;
       } else {
         try {
-          console.log("TENTANDO...");
-          setLoadingDashboard(true);
-          const { data } = await api.get(`/clients/${userId}`, {
+          const { data } = await api.get("/clients", {
             headers: {
               authorization: `Bearer ${token}`,
             },
           });
-          console.log("DATA", data);
+
           setUser(data);
+
           navigate("/dashboard");
         } catch (error) {
           localStorage.clear();
           navigate("/");
           console.error(error);
+          const currentError =
+            error as AxiosError<iDefaultContactErrorResponse>;
+          toast.error(
+            `Ops! Algo deu errado: ${currentError.response?.data.message}`
+          );
         } finally {
           setLoadingDashboard(false);
         }
@@ -59,7 +70,8 @@ export const UserProvider = ({ children }: iChildren) => {
     }
 
     loadUser();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
 
   const signInUserFunction = async (formData: iUserLoginInformation) => {
     try {
@@ -70,22 +82,15 @@ export const UserProvider = ({ children }: iChildren) => {
       console.log(response.data, response.data);
       toast.success("Usuário logado com sucesso");
       const { token } = response.data;
-      const clientInfoResponse = await api.get(`/clients`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-      const { id, name, email, phone } = clientInfoResponse.data;
-      console.log(token, id);
-      window.localStorage.clear();
+      console.log("TOKEN", token);
       window.localStorage.setItem("@MyContacts:token", token);
-      window.localStorage.setItem("@MyContacts:userid", id);
-      setUser({ id: id, name: name, email: email, phone: phone });
       navigate("/dashboard");
     } catch (error) {
       const currentError = error as AxiosError<iDefaultErrorResponse>;
       console.error(error);
-      toast.error(`Ops! Algo deu errado: ${currentError.response?.data}`);
+      toast.error(
+        `Ops! Algo deu errado: ${currentError.response?.data.message}`
+      );
     } finally {
       setLoading(false);
     }
@@ -119,6 +124,52 @@ export const UserProvider = ({ children }: iChildren) => {
       email: "",
       phone: "",
     });
+    navigate("/");
+  };
+
+  const reloadUser = async () => {
+    try {
+      const token = localStorage.getItem("@MyContacts:token");
+      const { data } = await api.get(`/clients`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      setUser(data);
+      console.log("BBBBB", user);
+    } catch (error) {
+      console.error(error);
+      toast.error(`Ops! Algo deu errado: falha na comunicação!`);
+    }
+  };
+
+  const updateUserProfile = async (data: iUserItem) => {
+    try {
+      setProfileLoading(true);
+      console.log("*******", data);
+      const updateData: iUserUpdate = data;
+      if (data.email === user.email) {
+        delete updateData.email;
+      }
+      const userId = user.id;
+      const token = localStorage.getItem("@MyContacts:token");
+      await api.patch(`/clients/${userId}`, updateData, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success("Profile atualizado com sucesso!");
+      await reloadUser();
+      setActionOverProfile(false);
+    } catch (error) {
+      const currentError = error as AxiosError<iDefaultContactErrorResponse>;
+      console.error(error);
+      toast.error(
+        `Ops! Algo deu errado$$$: ${currentError.response?.data.message}`
+      );
+    } finally {
+      setProfileLoading(false);
+    }
   };
 
   return (
@@ -132,6 +183,10 @@ export const UserProvider = ({ children }: iChildren) => {
         loadingDashboard,
         registerUser,
         logoutUser,
+        updateUserProfile,
+        profileLoading,
+        actionOverProfile,
+        setActionOverProfile,
       }}
     >
       {children}

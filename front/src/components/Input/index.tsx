@@ -19,7 +19,6 @@ export const SingleInput = ({
   watch,
 }: iSingleInput) => {
   const [isActive, setIsActive] = useState(false);
-  console.log(watch, isActive);
   useEffect(() => {
     if (watch !== "") {
       setIsActive(true);

@@ -14,17 +14,11 @@ const verifyClientContactExistsMiddleware = async (
   const contactRepository: TContactRepo = AppDataSource.getRepository(Contact);
   const clientRepository: TClientRepo = AppDataSource.getRepository(Client);
 
-  // const findContacts: Contact | null = await contactRepository.findOne({
-  //   where: {
-  //     email: email,
-  //   },
-  // });
   const findClient: Client | null = await clientRepository.findOne({
     where: {
       id: req.client.clientId,
     },
   });
-  console.log(findClient);
 
   const findClientContact: Contact | null = await contactRepository
     .createQueryBuilder("contacts")
@@ -35,25 +29,9 @@ const verifyClientContactExistsMiddleware = async (
     })
     .getOne();
 
-  console.log(findClientContact);
-
   if (findClientContact) {
     throw new AppError("This client contact aready exists.", 400);
   }
-
-  // if (req.body.email) {
-  //   const findContact: Contact | null = await contactRepository.findOne({
-  //     where: {
-  //       email: req.body.email,
-  //       phone: req.body.phone,
-  //     },
-  //   });
-
-  //   if (findContact) {
-  //     if (findContact.registeredBy.id == req.params.id)
-  //       throw new AppError("Contact already exists", 409);
-  //   }
-  // }
 
   return next();
 };

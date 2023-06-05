@@ -1,28 +1,26 @@
-import { Modal, ModalBox, StyledTechTitle } from "./style";
-
+import { Modal, ModalBox, StyledContactTitle } from "./style";
 import { Button } from "../components/Button";
 import { StyledText } from "../styles/typography";
 import { ContactForm } from "../components/Forms/ContactForm";
-
-interface iModalContactProps {
-  contactAction: string;
-}
+import { ContactContext } from "../contexts/ContactContext/ContactContext";
+import { useContext } from "react";
+import { ContactFormDetails } from "../components/Forms/ContactFormDetails";
+import { AiOutlineClose } from "react-icons/ai";
 
 export const ContactModal = () => {
-  // const { actionOverContact } = useContext(ContactContext);
-  const actionOverContact = "create";
+  const { actionOverContact } = useContext(ContactContext);
 
   return actionOverContact === "create" ? (
     <Modal>
       <ModalBox>
         <Button type="closeModal" buttonStyle="icon">
-          X
+          <AiOutlineClose />
         </Button>
-        <StyledTechTitle>
-          <StyledText tag="h3" textStyle="title2">
+        <StyledContactTitle>
+          <StyledText tag="h3" textStyle="title1-white">
             Cadastrar contato
           </StyledText>
-        </StyledTechTitle>
+        </StyledContactTitle>
         <ContactForm />
       </ModalBox>
     </Modal>
@@ -30,14 +28,14 @@ export const ContactModal = () => {
     <Modal>
       <ModalBox>
         <Button type="closeModal" buttonStyle="icon">
-          X
+          <AiOutlineClose />
         </Button>
-        <StyledTechTitle>
-          <StyledText tag="h3" textStyle="title2">
+        <StyledContactTitle>
+          <StyledText tag="h3" textStyle="title1-white">
             Detalhes do contato
           </StyledText>
-        </StyledTechTitle>
-        {/* <ContactFormDetails contactId={actionOverContact} /> */}
+        </StyledContactTitle>
+        <ContactFormDetails contactId={actionOverContact} />
       </ModalBox>
     </Modal>
   );

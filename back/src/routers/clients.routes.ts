@@ -23,13 +23,13 @@ clientRoutes.post(
   createClientController
 );
 
-clientRoutes.get("/:id", verifyTokenIsValidMiddleware, listClientController);
+clientRoutes.get("", verifyTokenIsValidMiddleware, listClientController);
 
 clientRoutes.patch(
   "/:id",
-  verifyClientIdExistsMiddleware,
   verifyDataIsValidMiddleware(clientUpdateSchema),
   verifyTokenIsValidMiddleware,
+  verifyClientIdExistsMiddleware,
   verifyUserEmailExistsMiddleware,
   updateClientController
 );

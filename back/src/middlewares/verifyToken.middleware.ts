@@ -19,6 +19,7 @@ const verifyTokenIsValidMiddleware = async (
     if (error) {
       throw new AppError(error.message, 401);
     }
+
     req.client = {
       clientId: decoded.sub,
     };

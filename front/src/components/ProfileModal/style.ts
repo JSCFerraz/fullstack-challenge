@@ -26,7 +26,7 @@ export const ModalBox = styled.div`
   }
 `;
 
-export const StyledContactTitle = styled.div`
+export const StyledProfileTitle = styled.div`
   width: 100%;
   height: 5rem;
   display: flex;

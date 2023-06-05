@@ -3,32 +3,34 @@ import { EmptyContactList, StyledContactList } from "./style";
 import { ContactCard } from "../ContactCard";
 import { UserContext } from "../contexts/UserContext/UserContext";
 import { StyledText } from "../styles/typography";
+import { ContactContext } from "../contexts/ContactContext/ContactContext";
 
 export const ContactList = () => {
-  const { user } = useContext(UserContext);
-  // const isEmpty = user.techs.length;
-  const isEmpty = false;
+  const { filteredContacts } = useContext(ContactContext);
+
+  const isNotEmpty = filteredContacts.length;
 
   return (
     <>
-      {isEmpty ? (
+      {isNotEmpty ? (
         <>
           <StyledContactList>
-            {/* {user.contacts.map((contact) => (
+            {filteredContacts.map((contact) => (
               <ContactCard
                 key={contact.id}
                 id={contact.id}
-                name={contact.title}
-                status={contact.status}
+                name={contact.name}
+                email={contact.email}
+                phone={contact.phone}
               ></ContactCard>
-            ))} */}
+            ))}
           </StyledContactList>
         </>
       ) : (
         <EmptyContactList>
           <StyledText tag="span" textStyle="title2-white">
-            Não há tecnologias cadastradas. Clique no botão + para adicionar uma
-            tecnologia.
+            Não há contatos cadastradas. Clique no botão + para adicionar um
+            Contato.
           </StyledText>
         </EmptyContactList>
       )}

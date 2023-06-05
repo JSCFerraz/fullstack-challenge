@@ -1,10 +1,10 @@
 import { AppDataSource } from "../../data-source";
 import { Client, Contact } from "../../entities";
+import AppError from "../../errors/app.errors";
 import { TClientRepo } from "../../interfaces/client.interface";
 import {
   TContact,
   TContactRepo,
-  // TContactRepoCreate,
   TContactRequest,
   TContactResponse,
 } from "../../interfaces/contact.interface";
@@ -14,49 +14,35 @@ const createContactService = async (
   contactData: TContact,
   clientId: string
 ): Promise<TContactResponse> => {
-  const { email } = contactData;
-  const contactRepository: TContactRepo = AppDataSource.getRepository(Contact);
-  const clientRepository: TClientRepo = AppDataSource.getRepository(Client);
+  const contactRepo: TContactRepo = AppDataSource.getRepository(Contact);
+  const clientRepo: TClientRepo = AppDataSource.getRepository(Client);
 
-  // const findContacts: Contact | null = await contactRepository.findOne({
-  //   where: {
-  //     email: email,
-  //   },
-  // });
-  const findClient: Client | null = await clientRepository.findOne({
+  const findClient: Client | null = await clientRepo.findOneBy({
+    id: clientId,
+  });
+
+  const findAllcontacts: Contact[] | null = await contactRepo.find({
     where: {
-      id: clientId,
+      registeredBy: { id: clientId },
+      email: contactData.email,
     },
   });
-  console.log(findClient);
 
-  // const findClientContact: Contact | null = await contactRepository
-  //   .createQueryBuilder("contacts")
-  //   .innerJoinAndSelect("contacts.registeredBy", "clients")
-  //   .where("contacts.email = :email", { email: email })
-  //   .andWhere("contacts.registeredBy = :client", {
-  //     client: clientId,
-  //   })
-  //   .getOne();
+  if (findAllcontacts.length) {
+    throw new AppError("A client contact with this email aready exists.", 409);
+  }
 
-  // console.log(findClientContact);
-
-  // if (findClientContact) {
-  //   throw new Error("This client contact aready exists.");
-  // }
-
-  const createContact: Contact = contactRepository.create({
+  const createContact: Contact = contactRepo.create({
     name: contactData.name,
     email: contactData.email,
     phone: contactData.phone,
     registeredBy: findClient!,
   });
 
-  await contactRepository.save(createContact);
+  await contactRepo.save(createContact);
 
   const newContact: TContactResponse =
     contactSchemaResponse.parse(createContact);
-  console.log(newContact);
 
   return newContact;
 };

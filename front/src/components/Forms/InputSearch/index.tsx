@@ -9,6 +9,8 @@ import { Button } from "../../Button";
 import { ContactContext } from "../../../contexts/ContactContext/ContactContext";
 
 export const InputSearch = () => {
+  const { filterSearchedContacts } = useContext(ContactContext);
+
   const {
     register,
     handleSubmit,
@@ -17,10 +19,9 @@ export const InputSearch = () => {
   } = useForm<iSearchForm>({
     resolver: yupResolver(searchFormSchema),
   });
-  // const { filterSearchedContacts } = useContext(ContactContext);
 
   const submit: SubmitHandler<iSearchForm> = (data) => {
-    // filterSearchedProducts(data.searchString);
+    filterSearchedContacts(data.searchString);
     reset();
   };
 
