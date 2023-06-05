@@ -47,7 +47,6 @@ export const StyledPageSideInfo = styled.div`
   padding: 0.5rem 1rem;
   height: 2.5rem;
   color: var(--color-grey-0);
-  /* background-color: var(--color-grey-1); */
   gap: 1rem;
   position: absolute;
   top: 80px;

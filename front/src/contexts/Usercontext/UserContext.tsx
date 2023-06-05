@@ -15,6 +15,8 @@ import {
   iUserItem,
   iUserUpdate,
 } from "./types";
+import { iDefaultContactErrorResponse } from "../ContactContext/types";
+
 
 export const UserContext = createContext({} as iUserProviderProps);
 

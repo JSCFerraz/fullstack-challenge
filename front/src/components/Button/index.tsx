@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { UserContext } from "../../contexts/UserContext/UserContext";
 import { iButton } from "./types";
 import { ContactContext } from "../../contexts/ContactContext/ContactContext";
 import { StyledButton } from "../../styles/buttons";
 import { StyledLink } from "./style";
+import { UserContext } from "../../contexts/UserContext/UserContext";
 
 export const Button = ({
   children,
@@ -108,6 +108,17 @@ export const Button = ({
           type="button"
           buttonSize={buttonStyle}
           onClick={() => setActionOverContact("")}
+          btnPosition="modal"
+        >
+          {children}
+        </StyledButton>
+      )}
+
+      {type === "closeProfileModal" && (
+        <StyledButton
+          type="button"
+          buttonSize={buttonStyle}
+          onClick={() => setActionOverProfile(false)}
           btnPosition="modal"
         >
           {children}
