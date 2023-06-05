@@ -12,7 +12,7 @@ export const ProfileModal = () => {
   return actionOverProfile ? (
     <Modal>
       <ModalBox>
-        <Button type="closeModal" buttonStyle="icon">
+        <Button type="closeProfileModal" buttonStyle="icon">
           <AiOutlineClose />
         </Button>
         <StyledProfileTitle>

@@ -2,7 +2,9 @@
 
 deployed in Vercel: https://react-entrega-hamburgueria-da-kenzie-typescript-jscferraz.vercel.app
 
-API: https://github.com/Kenzie-Academy-Brasil-Developers/hamburgueria-kenzie-version-2/
+API: https://github.com/JSCFerraz/fullstack-challenge/tree/main/back
+
+API Deloy: https://fullstack-challenge-back-t4hh.onrender.com
 
 # Getting Started with vite
 
