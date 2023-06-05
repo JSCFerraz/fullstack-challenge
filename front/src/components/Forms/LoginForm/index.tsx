@@ -21,7 +21,6 @@ export const LoginForm = () => {
     register,
     handleSubmit,
     formState: { errors, isDirty, isValid },
-    reset,
     watch,
   } = useForm<iLoginFormValues>({
     mode: "onChange",

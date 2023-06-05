@@ -11,12 +11,7 @@ import { ContactContext } from "../../../contexts/ContactContext/ContactContext"
 export const InputSearch = () => {
   const { filterSearchedContacts } = useContext(ContactContext);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<iSearchForm>({
+  const { register, handleSubmit, reset } = useForm<iSearchForm>({
     resolver: yupResolver(searchFormSchema),
   });
 

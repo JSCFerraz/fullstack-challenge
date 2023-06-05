@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { EmptyContactList, StyledContactList } from "./style";
 import { ContactCard } from "../ContactCard";
-import { UserContext } from "../contexts/UserContext/UserContext";
 import { StyledText } from "../styles/typography";
 import { ContactContext } from "../contexts/ContactContext/ContactContext";
 
@@ -29,8 +28,8 @@ export const ContactList = () => {
       ) : (
         <EmptyContactList>
           <StyledText tag="span" textStyle="title2-white">
-            Não há contatos cadastradas. Clique no botão + para adicionar um
-            Contato.
+            Não há contatos cadastradas. Clique no botão Adicionar Contato para
+            adicionar um Contato.
           </StyledText>
         </EmptyContactList>
       )}
