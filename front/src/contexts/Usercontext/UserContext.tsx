@@ -5,16 +5,18 @@ import { api } from "../../services/api";
 import { iChildren } from "../../interfaces/global";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
+import { iDefaultContactErrorResponse } from "../ContactContext/types";
 import {
   iUserProviderProps,
   iUserInformation,
   iUserLoginInformation,
   iDefaultErrorResponse,
   iUserRegisterInformation,
-  iUserUpdate,
   iUserItem,
+  iUserUpdate,
 } from "./types";
 import { iDefaultContactErrorResponse } from "../ContactContext/types";
+
 
 export const UserContext = createContext({} as iUserProviderProps);
 
