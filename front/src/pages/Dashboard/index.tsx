@@ -7,23 +7,6 @@ import { ContactContext } from "../../contexts/ContactContext/ContactContext";
 
 export const Dashboard = () => {
   const { user } = useContext(UserContext);
-  // const { fetchClientContacts } = useContext(ContactContext);
-
-  // useEffect(() => {
-  //   console.log("%%%%%%%%%%%%%%%%%%%%%%%%");
-  //   const callFunctions = async () => {
-  //     fetchClientInformation();
-  //     fetchClientContacts();
-  //   };
-  //   callFunctions();
-  // }, []);
-
-  // return (
-  //   <>
-  //     <Header />
-  //     <DashMain />
-  //   </>
-  // );
 
   return user.id ? (
     <>

@@ -1,10 +1,5 @@
 import logo from "./../../assets/img/LogoContacts.png";
-import {
-  StyledHeader,
-  StyledHeaderContents,
-  StyledIconDiv,
-  StyledRightColumn,
-} from "./style";
+import { StyledHeader, StyledHeaderContents, StyledRightColumn } from "./style";
 import { InputSearch } from "../Forms/InputSearch";
 import { Container } from "../../styles/containers";
 import { Button } from "../Button";

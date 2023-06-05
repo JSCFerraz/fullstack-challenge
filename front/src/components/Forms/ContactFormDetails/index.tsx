@@ -1,33 +1,23 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { contactFormDetailsSchema } from "./contactFormDetailsSchema.ts";
 import { SingleInput } from "../../Input";
 import { StyledText } from "../../../styles/typography";
-import {
-  HelperTextDiv,
-  StyledDetailsButtons,
-  StyledContactForm,
-} from "./style";
+import { StyledDetailsButtons, StyledContactForm } from "./style";
 import { Container } from "../../../styles/containers";
 import { Button } from "../../Button";
 import { ContactContext } from "../../../contexts/ContactContext/ContactContext";
 import { iContactId } from "./types.ts";
-import { UserContext } from "../../../contexts/UserContext/UserContext.tsx";
 import { iContactInformation } from "../../../contexts/ContactContext/types.ts";
 import { StyledForm } from "../RegisterForm/style.ts";
 
 export const ContactFormDetails = ({ contactId }: iContactId) => {
   const { updateContact, removeContact } = useContext(ContactContext);
-  const { contactLoading, deleteContactLoading, contacts, filteredContacts } =
+  const { contactLoading, deleteContactLoading, filteredContacts } =
     useContext(ContactContext);
-  // const { user } = useContext(UserContext);
 
-  console.log("contadId", contactId);
   const userContacts = filteredContacts.filter((item) => item.id === contactId);
-  console.log("$$$$", userContacts);
-  console.log("contactLoading", contactLoading);
-  console.log("deleteContactLoading", deleteContactLoading);
 
   const {
     register,
@@ -45,18 +35,6 @@ export const ContactFormDetails = ({ contactId }: iContactId) => {
     },
   });
 
-  // useEffect(() => {
-  //   const resetData = () => {
-  //     reset({
-  //       name: userContacts[0].name,
-  //       email: userContacts[0].email,
-  //       phone: userContacts[0].phone,
-  //     });
-  //   };
-
-  //   resetData();
-  // }, []);
-
   const submit: SubmitHandler<FieldValues> = async (formData) => {
     const data: iContactInformation = {
       name: formData.name,
@@ -67,7 +45,7 @@ export const ContactFormDetails = ({ contactId }: iContactId) => {
     if (userContacts[0].email === formData.email) {
       data.email = "";
     }
-    console.log("UPLOAD", data);
+
     updateContact(data, contactId);
   };
 
@@ -109,12 +87,7 @@ export const ContactFormDetails = ({ contactId }: iContactId) => {
             * Todos são campos obrigatórios
           </StyledText>
           <StyledDetailsButtons>
-            <Button
-              type="submit"
-              buttonStyle="delete"
-              disabled={false}
-              // disabled={!isDirty || !isValid || !contactLoading}
-            >
+            <Button type="submit" buttonStyle="delete" disabled={false}>
               {contactLoading ? "Salvando..." : "Salvar Alterações"}
             </Button>
             <Button

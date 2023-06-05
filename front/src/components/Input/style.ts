@@ -12,8 +12,6 @@ export const StyledInput = styled.input`
   padding: 0 1rem;
   display: block;
   font-size: var(--font-size-14);
-  /* position: absolute; */
-
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -26,7 +24,6 @@ export const StyledInput = styled.input`
 
 export const StyledLabel = styled.label`
   background-color: var(--color-white);
-  /* font-size: var(--font-size-14); */
   color: var(--color-grey100);
   position: absolute;
   pointer-events: none;

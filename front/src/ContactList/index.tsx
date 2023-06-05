@@ -7,8 +7,7 @@ import { ContactContext } from "../contexts/ContactContext/ContactContext";
 
 export const ContactList = () => {
   const { filteredContacts } = useContext(ContactContext);
-  // const isEmpty = user.techs.length;
-  console.log("FFFF", filteredContacts.length);
+
   const isNotEmpty = filteredContacts.length;
 
   return (

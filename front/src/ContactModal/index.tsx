@@ -9,7 +9,7 @@ import { AiOutlineClose } from "react-icons/ai";
 
 export const ContactModal = () => {
   const { actionOverContact } = useContext(ContactContext);
-  console.log("CONTACT MODAL", actionOverContact);
+
   return actionOverContact === "create" ? (
     <Modal>
       <ModalBox>

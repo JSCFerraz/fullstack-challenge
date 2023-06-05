@@ -59,10 +59,6 @@ export const StyledButton = styled.button<iStyledButton>`
           color: var(--color-grey-0);
           background-color: var(--color-primary);
           border: 1px solid var(--color-primary);
-
-          /* &:hover {
-            background-color: var(--color-primary-hover);
-          } */
         `;
       case "delete":
         return css`
@@ -76,10 +72,6 @@ export const StyledButton = styled.button<iStyledButton>`
           color: var(--color-grey-4);
           background-color: var(--color-primary);
           border: 1px solid var(--color-primary);
-
-          /* &:hover {
-            background-color: var(--color-primary-hover);
-          } */
         `;
       case "modifyProfile":
         return css`
@@ -93,10 +85,6 @@ export const StyledButton = styled.button<iStyledButton>`
           color: var(--color-grey-4);
           background-color: var(--color-primary);
           border: 1px solid var(--color-primary);
-
-          /* &:hover {
-            background-color: var(--color-primary-hover);
-          } */
         `;
       case "closeModal":
         return css`
@@ -142,8 +130,6 @@ export const StyledButton = styled.button<iStyledButton>`
           background-color: var(--color-primary);
           border: 1px solid var(--color-primary);
           z-index: 45;
-          /* position: absolute; */
-          /* top: 1.5rem; */
 
           &:hover {
             background-color: var(--color-primary-hover);
@@ -169,7 +155,6 @@ export const StyledButton = styled.button<iStyledButton>`
   }}
 
   ${({ disabled, buttonSize }) => {
-    console.log(disabled, buttonSize);
     if (
       disabled &&
       (buttonSize === "submit" || buttonSize === "submitUpdate")

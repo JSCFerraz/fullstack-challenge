@@ -18,13 +18,6 @@ export const DashMain = () => {
   const { actionOverContact } = useContext(ContactContext);
   const { user, actionOverProfile } = useContext(UserContext);
 
-  // useEffect(() => {
-  //   const callFunctions = async () => {
-  //     fetchClientContacts();
-  //   };
-  //   callFunctions();
-  // }, [filteredContacts]);
-
   return (
     <Container page={page}>
       <StyledUserDashMain>

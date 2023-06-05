@@ -28,7 +28,6 @@ export const ContactProvider = ({ children }: iChildren) => {
   );
   const [showSearchInput, setShowSearchInput] = useState(false);
   const location = useLocation();
-  console.log(location);
 
   useEffect(() => {
     const getContacts = async () => {
@@ -65,7 +64,7 @@ export const ContactProvider = ({ children }: iChildren) => {
         authorization: `Bearer ${token}`,
       },
     });
-    console.log(token, data);
+
     window.localStorage.setItem("@MyContacts:userid", data.id);
     setUser({
       id: data.id,
@@ -82,25 +81,8 @@ export const ContactProvider = ({ children }: iChildren) => {
     setFilteredContacts(searchedContacts);
   };
 
-  // const reloadUser = async () => {
-  //   const token = localStorage.getItem("@MyContacts:token");
-
-  //   try {
-  //     const { data } = await api.get(`/clients`, {
-  //       headers: {
-  //         authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     setUser(data);
-  //   } catch (error) {
-  //     console.error(error);
-  //     toast.error(`Ops! Algo deu errado: falha na comunicação!`);
-  //   }
-  // };
-
   const reloadContact = async () => {
     try {
-      console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
       const token = localStorage.getItem("@MyContacts:token");
       const { data } = await api.get(`/contacts`, {
         headers: {
@@ -117,7 +99,6 @@ export const ContactProvider = ({ children }: iChildren) => {
 
   const addContact = async (formData: iContectCreateItem) => {
     try {
-      console.log("AAAAAAAAAAA", formData);
       setContactLoading(true);
       const token = localStorage.getItem("@MyContacts:token");
       const { data } = await api.post("/contacts", formData, {
@@ -125,7 +106,7 @@ export const ContactProvider = ({ children }: iChildren) => {
           authorization: `Bearer ${token}`,
         },
       });
-      console.log("DATA", data);
+
       toast.success("Contato cadastrado com sucesso!");
       setActionOverContact("");
       await reloadContact();
@@ -170,7 +151,6 @@ export const ContactProvider = ({ children }: iChildren) => {
   };
 
   const removeContact = async (contactId: string) => {
-    console.log("contactID", contactId);
     try {
       setDeleteContactLoading(true);
       const token = localStorage.getItem("@MyContacts:token");

@@ -10,7 +10,6 @@ import { StyledForm } from "../RegisterForm/style";
 import { profileFormSchema } from "./ProfileFormSchema";
 import { UserContext } from "../../../contexts/UserContext/UserContext";
 import { iProfileFormValues } from "./types";
-import { ContactContext } from "../../../contexts/ContactContext/ContactContext";
 
 export const ProfileForm = () => {
   const { user, updateUserProfile, profileLoading } = useContext(UserContext);
@@ -34,7 +33,6 @@ export const ProfileForm = () => {
       phone: formData.phone,
     };
 
-    console.log("UPDATE PROFILE", data);
     updateUserProfile(data);
     reset();
   };

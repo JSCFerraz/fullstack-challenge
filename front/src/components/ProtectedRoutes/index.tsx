@@ -1,11 +1,10 @@
 import { useContext } from "react";
-import { useLocation, Outlet, Navigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext/UserContext";
 import { StyledText } from "../../styles/typography";
 
 export const ProtectedRoutes = () => {
-  const { user, loadingDashboard } = useContext(UserContext);
-  const location = useLocation();
+  const { loadingDashboard } = useContext(UserContext);
 
   if (loadingDashboard) {
     return (
@@ -16,5 +15,4 @@ export const ProtectedRoutes = () => {
   }
 
   return <Outlet />;
-  // return user.id ? <Outlet /> : <Navigate to="/" state={{ from: location }} />;
 };
